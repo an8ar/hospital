@@ -1,0 +1,27 @@
+stages:
+  - deploy
+
+before_script:
+  - ansible --version
+  - mkdir secret
+  - echo "$ANSIBLE_SSH_KEY" > secret/ansible.key ## import ansible ssh key
+  - chmod 400 secret/ansible.key
+  - export ANSIBLE_HOST_KEY_CHECKING=False
+
+deploy:deploy_dev: 
+  stage: deploy
+  resource_group: deploy_dev
+  only: 
+    refs:
+      - development
+    changes: 
+      - src/**/*
+      - ansible/**/*
+      - Dockerfile
+      - package.json
+      - yarn.lock
+      - .gitlab-ci.yml
+  script: 
+    - cat $APP_ENV_FILE_DEV > .env
+    - docker run --rm -v "$PWD":/usr/src/app -w /usr/src/app -u `id -u $USER`:`id -g $USER` --env-file .env node:16 bash -c 'yarn install; yarn build;'
+    - ansible-playbook -i $DEV_INVENTORY --private-key secret/ansible.key ./ansible/playbooks/deploy.yml 

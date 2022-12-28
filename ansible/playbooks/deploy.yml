@@ -1,11 +1,11 @@
 - hosts: all
   vars:
-    deploy_folder: /home/sw/sw-main-frontend
+    deploy_folder: /home/ubuntu/nutrix/nutrix-web
 
   tasks:
   - name: Copy files to the server
     synchronize:
-      src: ../dist/
+      src: ../../dist/
       dest: "{{ deploy_folder }}"
       rsync_opts:
       - "--no-motd"
