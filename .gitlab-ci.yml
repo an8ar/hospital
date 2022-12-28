@@ -23,5 +23,5 @@ deploy:deploy_dev:
       - .gitlab-ci.yml
   script: 
     - cat $APP_ENV_FILE_DEV > .env
-    - docker run --rm -v "$PWD":/usr/src/app -w /usr/src/app -u `id -u $USER`:`id -g $USER` --env-file .env node:16 bash -c 'yarn install; yarn build;'
+    - docker run --rm -v "$PWD":/usr/src/app -w /usr/src/app -u `id -u $USER`:`id -g $USER` node:16 bash -c 'yarn install; yarn build;'
     - ansible-playbook -i $DEV_INVENTORY --private-key secret/ansible.key ./ansible/playbooks/deploy.yml 
