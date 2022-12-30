@@ -1,5 +1,3 @@
-
-
 export interface ProcedureResponce {
     id: number,
     createdAt: string,

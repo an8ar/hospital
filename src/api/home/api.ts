@@ -10,11 +10,11 @@ const procedureApi = createApi({
   reducerPath: PROCEDURES_API_REDUCER_KEY,
   endpoints: (builder) => ({
     getProcedures: builder.query<ProcedureResponce[], null>({
-        query: () => ({
-          url: '/procedures',
-          method: 'GET',
-        }),
+      query: () => ({
+        url: '/procedures',
+        method: 'GET',
       }),
+    }),
   }),
 });
 
