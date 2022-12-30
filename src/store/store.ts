@@ -5,7 +5,9 @@ import {
 } from 'redux-persist';
 
 import authApi, { AUTH_API_REDUCER_KEY } from '~/api/auth/api';
+import procedureApi, { PROCEDURES_API_REDUCER_KEY } from '~/api/home/api';
 import { authReducer, authSlice } from '~/features/auth';
+import { cartReducer, cartSlice } from '~/features/cart';
 
 import { RESET_STATE_ACTION_TYPE } from './actions/resetState';
 import { rtkQueryErrorLogger } from './middlewares/rtkQueryErrorLogger';
@@ -13,6 +15,8 @@ import { rtkQueryErrorLogger } from './middlewares/rtkQueryErrorLogger';
 const reducers = {
   [authSlice.name]: authReducer,
   [AUTH_API_REDUCER_KEY]: authApi.reducer,
+  [cartSlice.name]: cartReducer,
+  [PROCEDURES_API_REDUCER_KEY]: procedureApi.reducer,
 };
 
 const combinedReducer = combineReducers<typeof reducers>(reducers);
