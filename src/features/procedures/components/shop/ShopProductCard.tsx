@@ -7,7 +7,9 @@ import {
 } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../../../store';
-import { addToCart, removeProcedure } from '../../../cart/cartSlice';
+import {
+  addToCart, removeProcedure, decrementCount,
+} from '../../../cart/cartSlice';
 import type { CartProcedure } from '../../../cart/types';
 import { Procedure } from '../../types';
 // ----------------------------------------------------------------------
@@ -17,42 +19,32 @@ type Props = {
 };
 
 export default function ShopProductCard({ product }: Props) {
-  const selected = useAppSelector((state) => state.cartSlice.cart);
-  let isAdded = false;
-  let numberOfInjections = 0;
-  selected.forEach((procedureCart) => {
-    if (procedureCart.id === product.id) {
-      isAdded = true;
-      numberOfInjections = procedureCart.quantity;
-    }
-  });
+  const cartProcedures = useAppSelector((state) => state.cartSlice.procedures);
+
   const dispatch = useAppDispatch();
 
-  const [count, setCount] = React.useState(numberOfInjections);
   function handleAdd(procedure: Procedure) {
     const cart: CartProcedure = {
       ...procedure,
-      quantity: count,
+      quantity: 1,
     };
     dispatch(addToCart(cart));
   }
   function handleRemove(procedure: Procedure) {
     const cart: CartProcedure = {
       ...procedure,
-      quantity: count,
+      quantity: 1,
     };
-    setCount(0);
     dispatch(removeProcedure(cart));
   }
-  function handleCountPlus() {
-    setCount(count + 1);
+  function handleDecrement(procedure: Procedure, count: number) {
+    const cart: CartProcedure = {
+      ...procedure,
+      quantity: count,
+    };
+    dispatch(decrementCount(cart));
   }
-  function handleCountMinus() {
-    if (count >= 1) {
-      setCount(count - 1);
-    }
-  }
-
+  const index = cartProcedures.findIndex((item) => item.id === product.id);// index of procedure in state that is printed
   return (
     <Card sx={{ margin: 5 }}>
       <Stack spacing={2} sx={{ p: 3 }}>
@@ -67,28 +59,29 @@ export default function ShopProductCard({ product }: Props) {
             >
               3000tg
             </Typography>
-            <Box sx={{ display: 'flex' }}>
-              <Button onClick={() => handleCountPlus()}>
-                <AddIcon />
-              </Button>
-              <Typography>
-                {count}
-              </Typography>
 
-              <Button onClick={() => handleCountMinus()}>
-                <RemoveIcon />
-              </Button>
-            </Box>
-            {isAdded ? (
-              <Button onClick={() => handleRemove(product)}>
-                Удалить
-              </Button>
+            {cartProcedures.some((procedure) => procedure.id === product.id) ? (
+              <>
+                <Button onClick={() => handleRemove(product)}>
+                  Удалить
+                </Button>
+                <Box sx={{ display: 'flex' }}>
+                  <Button onClick={() => handleAdd(product)}>
+                    <AddIcon />
+                  </Button>
+                  <Typography>
+                    {cartProcedures[index].quantity}
+                  </Typography>
+                  <Button onClick={() => handleDecrement(product, cartProcedures[index].quantity)}>
+                    <RemoveIcon />
+                  </Button>
+                </Box>
+              </>
             ) : (
               <Button onClick={() => handleAdd(product)}>
                 Добавить
               </Button>
             ) }
-
             <Typography component="span">
               {product.description}
             </Typography>

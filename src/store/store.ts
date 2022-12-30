@@ -5,7 +5,7 @@ import {
 } from 'redux-persist';
 
 import authApi, { AUTH_API_REDUCER_KEY } from '~/api/auth/api';
-import procedureApi, { PROCEDURES_API_REDUCER_KEY } from '~/api/home/api';
+import procedureApi, { PROCEDURES_API_REDUCER_KEY } from '~/api/procedures/api';
 import { authReducer, authSlice } from '~/features/auth';
 import { cartReducer, cartSlice } from '~/features/cart';
 
@@ -36,7 +36,7 @@ export const store = configureStore({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
-  }).concat([authApi.middleware, rtkQueryErrorLogger]),
+  }).concat([authApi.middleware, procedureApi.middleware, rtkQueryErrorLogger]),
 });
 
 export const persistor = persistStore(store);

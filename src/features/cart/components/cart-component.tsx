@@ -17,7 +17,7 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 }));
 
 export function CartComponent() {
-  const cart = useAppSelector((state) => state.cartSlice.cart);
+  const cart = useAppSelector((state) => state.cartSlice.procedures);
   return (
     <IconButton aria-label="cart" size="large">
       <StyledBadge badgeContent={cart.length} color="secondary">

@@ -4,42 +4,71 @@ import storage from 'redux-persist/lib/storage';
 
 import { CartProcedure } from './types';
 
-interface CartType {
-    cart: CartProcedure[],
+interface CartState {
+    procedures: CartProcedure[],
 }
 
-const initialState: CartType = {
-  cart: [],
+const initialState: CartState = {
+  procedures: [],
 };
+function includes(cart: CartProcedure[], procedure: CartProcedure): boolean {
+  for (let i = 0; i < cart.length; i += 1) {
+    if (cart[i].id === procedure.id) {
+      return true;
+    }
+  }
+  return false;
+}
 
 export const cartSlice = createSlice({
   name: 'cartSlice',
   initialState,
   reducers: {
     addToCart(state, action: PayloadAction<CartProcedure>) {
-      state.cart.push(action.payload);
+      if (state.procedures.some((procedure) => procedure.id === action.payload.id)) {
+        state.procedures = state.procedures.map((procedure) => {
+          if (procedure.id === action.payload.id) {
+            return { ...procedure, quantity: procedure.quantity + 1 };
+          }
+          return { ...procedure };
+        });
+      } else {
+        state.procedures.push(action.payload);
+      }
     },
     removeAll(state) {
-      state.cart = [];
+      state.procedures = [];
     },
     removeProcedure(state, action: PayloadAction<CartProcedure>) {
-      const insert = state.cart.filter((procedure) => procedure.id !== action.payload.id);
-      if (insert === undefined) {
-        state.cart = [];
-      } else {
-        state.cart = insert;
-      }
+      const items = state.procedures.filter((procedure) => procedure.id !== action.payload.id);
+      state.procedures = items || [];
+    },
+    decrementCount(state, action: PayloadAction<CartProcedure>) {
+      state.procedures = state.procedures.map((procedure) => {
+        if (procedure.id === action.payload.id) {
+          if (procedure.quantity >= 2) {
+            return { ...procedure, quantity: procedure.quantity - 1 };
+          }
+
+          return { ...procedure, quantity: 0 };
+        }
+        return { ...procedure };
+      });
+      const items = state.procedures.filter((procedure) => procedure.quantity !== 0);
+      state.procedures = items || [];
     },
   },
 });
 
-export const { addToCart, removeAll, removeProcedure } = cartSlice.actions;
+export const {
+  addToCart, removeAll, removeProcedure, decrementCount,
+} = cartSlice.actions;
 
 export const cartReducer = persistReducer(
   {
     key: 'rtk:cart',
     storage,
-    whitelist: ['cart'],
+    whitelist: ['procedures'],
   },
   cartSlice.reducer,
 );

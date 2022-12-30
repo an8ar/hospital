@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box } from '@mui/material';
 
-import procedureApi from '~/api/home/api';
+import procedureApi from '~/api/procedures/api';
 
 import { CartComponent } from '../../cart';
 import { ShopProductList } from './shop';

@@ -1,2 +1,2 @@
 export * from './cartSlice';
-export * from './components/CartComponent';
+export * from './components/cart-component';

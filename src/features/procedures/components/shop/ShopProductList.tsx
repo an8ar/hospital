@@ -1,10 +1,7 @@
 import React from 'react';
 
-// @mui
 import { Box } from '@mui/material';
-// @type
 
-// components
 import ShopProductCard from './ShopProductCard';
 
 // ----------------------------------------------------------------------

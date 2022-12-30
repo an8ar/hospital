@@ -1,4 +1,4 @@
-export interface ProcedureResponce {
+export interface ProcedureResponse {
     id: number,
     createdAt: string,
     updatedAt: string,
