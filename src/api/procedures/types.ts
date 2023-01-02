@@ -1,9 +1,3 @@
-export interface ProcedureResponse {
-    id: number,
-    createdAt: string,
-    updatedAt: string,
-    specializationId: number,
-    name: string,
-    slug: string,
-    description: string,
-}
+import { Procedure } from '~/features/procedures';
+
+export type ProcedureResponse = Procedure[];

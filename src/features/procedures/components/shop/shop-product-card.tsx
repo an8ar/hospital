@@ -8,9 +8,8 @@ import {
 
 import { useAppDispatch, useAppSelector } from '../../../../store';
 import {
-  addToCart, removeProcedure, decrementCount,
-} from '../../../cart/cartSlice';
-import type { CartProcedure } from '../../../cart/types';
+  addToCart, removeProcedure, decrementQuantity,
+} from '../../../cart/cart-slice';
 import { Procedure } from '../../types';
 // ----------------------------------------------------------------------
 
@@ -23,28 +22,7 @@ export default function ShopProductCard({ product }: Props) {
 
   const dispatch = useAppDispatch();
 
-  function handleAdd(procedure: Procedure) {
-    const cart: CartProcedure = {
-      ...procedure,
-      quantity: 1,
-    };
-    dispatch(addToCart(cart));
-  }
-  function handleRemove(procedure: Procedure) {
-    const cart: CartProcedure = {
-      ...procedure,
-      quantity: 1,
-    };
-    dispatch(removeProcedure(cart));
-  }
-  function handleDecrement(procedure: Procedure, count: number) {
-    const cart: CartProcedure = {
-      ...procedure,
-      quantity: count,
-    };
-    dispatch(decrementCount(cart));
-  }
-  const index = cartProcedures.findIndex((item) => item.id === product.id);// index of procedure in state that is printed
+  const cartProcedure = cartProcedures.find((item) => item.id === product.id);
   return (
     <Card sx={{ margin: 5 }}>
       <Stack spacing={2} sx={{ p: 3 }}>
@@ -60,25 +38,25 @@ export default function ShopProductCard({ product }: Props) {
               3000tg
             </Typography>
 
-            {cartProcedures.some((procedure) => procedure.id === product.id) ? (
+            {cartProcedure ? (
               <>
-                <Button onClick={() => handleRemove(product)}>
+                <Button onClick={() => dispatch(removeProcedure(product))}>
                   Удалить
                 </Button>
                 <Box sx={{ display: 'flex' }}>
-                  <Button onClick={() => handleAdd(product)}>
+                  <Button onClick={() => dispatch(addToCart(product))}>
                     <AddIcon />
                   </Button>
                   <Typography>
-                    {cartProcedures[index].quantity}
+                    {cartProcedure.quantity}
                   </Typography>
-                  <Button onClick={() => handleDecrement(product, cartProcedures[index].quantity)}>
+                  <Button onClick={() => dispatch(decrementQuantity(product))}>
                     <RemoveIcon />
                   </Button>
                 </Box>
               </>
             ) : (
-              <Button onClick={() => handleAdd(product)}>
+              <Button onClick={() => dispatch(addToCart(product))}>
                 Добавить
               </Button>
             ) }

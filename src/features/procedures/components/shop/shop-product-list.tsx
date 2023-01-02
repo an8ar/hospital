@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box } from '@mui/material';
 
-import ShopProductCard from './ShopProductCard';
+import ShopProductCard from './shop-product-card';
 
 // ----------------------------------------------------------------------
 

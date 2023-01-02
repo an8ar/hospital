@@ -9,7 +9,7 @@ const procedureApi = createApi({
   baseQuery,
   reducerPath: PROCEDURES_API_REDUCER_KEY,
   endpoints: (builder) => ({
-    getProcedures: builder.query<ProcedureResponse[], null>({
+    getProcedures: builder.query<ProcedureResponse, null>({
       query: () => ({
         url: '/procedures',
         method: 'GET',
