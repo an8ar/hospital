@@ -6,4 +6,6 @@ export interface Procedure {
     name: string,
     slug: string,
     description: string,
+    minPrice: number,
+    maxPrice: number,
   }

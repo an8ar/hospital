@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box } from '@mui/material';
 
-import ShopProductCard from './shop-product-card';
+import ShopProductCard from './procedure-card';
 
 // ----------------------------------------------------------------------
 
@@ -35,10 +35,10 @@ export default function ShopProductList({ products, loading }: Props) {
         },
       }}
     >
-      {(loading ? [...Array(12)] : products).map((product, index) => (product ? (
+      {(loading ? [...Array(products.length)] : products).map((product, index) => (product ? (
         <ShopProductCard key={product.id} product={product} />
       ) : (
-        <div>Nothing</div>
+        <div>Идет Загрузка</div>
       )))}
     </Box>
   );

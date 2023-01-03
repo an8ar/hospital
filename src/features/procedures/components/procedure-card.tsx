@@ -6,11 +6,11 @@ import {
   Card, Typography, Stack, Button, Box,
 } from '@mui/material';
 
-import { useAppDispatch, useAppSelector } from '../../../../store';
+import { useAppDispatch, useAppSelector } from '../../../store';
 import {
   addToCart, removeProcedure, decrementQuantity,
-} from '../../../cart/cart-slice';
-import { Procedure } from '../../types';
+} from '../../cart/cart-slice';
+import { Procedure } from '../types';
 // ----------------------------------------------------------------------
 
 type Props = {
@@ -35,7 +35,26 @@ export default function ShopProductCard({ product }: Props) {
               component="span"
               sx={{ color: 'text.disabled' }}
             >
-              3000tg
+              {product.minPrice === product.maxPrice ? (
+                <Typography>
+                  {' '}
+                  {product.maxPrice}
+                </Typography>
+              )
+                : (
+                  <Typography>
+                    {product.minPrice}
+                    {' '}
+                    тг
+                    {' '}
+                    -
+                    {' '}
+                    {product.maxPrice}
+                    {' '}
+                    тг
+                  </Typography>
+                )}
+
             </Typography>
 
             {cartProcedure ? (
