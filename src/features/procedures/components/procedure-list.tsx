@@ -35,7 +35,7 @@ export default function ShopProductList({ products, loading }: Props) {
         },
       }}
     >
-      {(loading ? [...Array(products.length)] : products).map((product, index) => (product ? (
+      {(loading ? [...Array(products.length)] : products).map((product) => (product ? (
         <ShopProductCard key={product.id} product={product} />
       ) : (
         <div>Идет Загрузка</div>

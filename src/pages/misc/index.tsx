@@ -8,11 +8,13 @@ const { Page500 } = lazyImport(() => import('./Page500'), 'Page500');
 const { Page403 } = lazyImport(() => import('./Page403'), 'Page403');
 const { Page404 } = lazyImport(() => import('./Page404'), 'Page404');
 const { HomePage } = lazyImport(() => import('./Home'), 'HomePage');
+const { CheckoutPage } = lazyImport(() => import('./Checkout'), 'CheckoutPage');
 
 export const MiscRoutes = [
-  // <Route path="/" element={<Navigate to="/login" />} key="home" />,
   <Route path="/" element={<HomePage />} key="home" />,
   <Route path="/403" element={<Page403 />} key="403" />,
   <Route path="/404" element={<Page404 />} key="404" />,
   <Route path="/500" element={<Page500 />} key="500" />,
+  <Route path="/checkout" element={<CheckoutPage />} key="checkout" />,
+
 ];

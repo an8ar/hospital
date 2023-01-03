@@ -54,9 +54,7 @@ export default function ShopProductCard({ product }: Props) {
                     тг
                   </Typography>
                 )}
-
             </Typography>
-
             {cartProcedure ? (
               <>
                 <Button onClick={() => dispatch(removeProcedure(product))}>
