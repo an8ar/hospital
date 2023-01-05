@@ -9,10 +9,9 @@ import { ProcedureCard } from './procedure-card';
 
 type Props = {
   products: Procedure[];
-  loading: boolean;
 };
 
-export function ProcedureList({ products, loading }: Props) {
+export function ProcedureList({ products }: Props) {
   return (
     <Box
       sx={{
