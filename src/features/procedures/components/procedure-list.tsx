@@ -2,9 +2,7 @@ import React from 'react';
 
 import { Box } from '@mui/material';
 
-import ShopProductCard from './procedure-card';
-
-// ----------------------------------------------------------------------
+import { ProcedureCard } from './procedure-card';
 
 type Procedure = {
   id: number,
@@ -21,7 +19,7 @@ type Props = {
   loading: boolean;
 };
 
-export default function ShopProductList({ products, loading }: Props) {
+export function ProcedureList({ products, loading }: Props) {
   return (
     <Box
       sx={{
@@ -36,7 +34,7 @@ export default function ShopProductList({ products, loading }: Props) {
       }}
     >
       {(loading ? [...Array(products.length)] : products).map((product) => (product ? (
-        <ShopProductCard key={product.id} product={product} />
+        <ProcedureCard key={product.id} product={product} />
       ) : (
         <div>Идет Загрузка</div>
       )))}

@@ -11,13 +11,12 @@ import {
   addToCart, removeProcedure, decrementQuantity,
 } from '../../cart/cart-slice';
 import { Procedure } from '../types';
-// ----------------------------------------------------------------------
 
 type Props = {
   product: Procedure;
 };
 
-export default function ShopProductCard({ product }: Props) {
+export function ProcedureCard({ product }: Props) {
   const cartProcedures = useAppSelector((state) => state.cartSlice.procedures);
 
   const dispatch = useAppDispatch();
