@@ -22,6 +22,17 @@ export function ProcedureCard({ product }: Props) {
   const dispatch = useAppDispatch();
 
   const cartProcedure = cartProcedures.find((item) => item.id === product.id);
+
+  const getPrice = () => {
+    const { minPrice, maxPrice } = product;
+
+    if (minPrice === maxPrice) {
+      return `${minPrice} тг`;
+    }
+
+    return `${minPrice}  тг - ${maxPrice} тг`;
+  };
+
   return (
     <Card sx={{ margin: 5 }}>
       <Stack spacing={2} sx={{ p: 3 }}>
@@ -34,16 +45,7 @@ export function ProcedureCard({ product }: Props) {
               component="span"
               sx={{ color: 'text.disabled' }}
             >
-              {product.minPrice === product.maxPrice ? (
-                <Typography>
-                  {product.minPrice}
-                </Typography>
-              )
-                : (
-                  <Typography>
-                    {`${product.minPrice} тг - ${product.maxPrice}`}
-                  </Typography>
-                )}
+              {getPrice()}
             </Typography>
             {cartProcedure ? (
               <>
