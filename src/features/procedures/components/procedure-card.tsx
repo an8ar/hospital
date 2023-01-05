@@ -36,21 +36,12 @@ export function ProcedureCard({ product }: Props) {
             >
               {product.minPrice === product.maxPrice ? (
                 <Typography>
-                  {' '}
-                  {product.maxPrice}
+                  {product.minPrice}
                 </Typography>
               )
                 : (
                   <Typography>
-                    {product.minPrice}
-                    {' '}
-                    тг
-                    {' '}
-                    -
-                    {' '}
-                    {product.maxPrice}
-                    {' '}
-                    тг
+                    {`${product.minPrice} тг - ${product.maxPrice}`}
                   </Typography>
                 )}
             </Typography>
