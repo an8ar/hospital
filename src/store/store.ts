@@ -5,14 +5,20 @@ import {
 } from 'redux-persist';
 
 import authApi, { AUTH_API_REDUCER_KEY } from '~/api/auth/api';
+import procedureApi, { PROCEDURES_API_REDUCER_KEY } from '~/api/procedures/api';
+import userApi, { USER_API_REDUCER_KEY } from '~/api/user/api';
 import { authReducer, authSlice } from '~/features/auth';
+import { cartReducer, cartSlice } from '~/features/cart';
 
 import { RESET_STATE_ACTION_TYPE } from './actions/resetState';
 import { rtkQueryErrorLogger } from './middlewares/rtkQueryErrorLogger';
 
 const reducers = {
   [authSlice.name]: authReducer,
+  [cartSlice.name]: cartReducer,
   [AUTH_API_REDUCER_KEY]: authApi.reducer,
+  [PROCEDURES_API_REDUCER_KEY]: procedureApi.reducer,
+  [USER_API_REDUCER_KEY]: userApi.reducer,
 };
 
 const combinedReducer = combineReducers<typeof reducers>(reducers);
@@ -32,7 +38,7 @@ export const store = configureStore({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
-  }).concat([authApi.middleware, rtkQueryErrorLogger]),
+  }).concat([authApi.middleware, procedureApi.middleware, rtkQueryErrorLogger]),
 });
 
 export const persistor = persistStore(store);

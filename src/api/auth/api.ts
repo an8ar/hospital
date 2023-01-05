@@ -4,7 +4,6 @@ import { baseQuery } from '..';
 import {
   LoginResponse,
   LoginRequest,
-  CSRFResponse,
 } from './types';
 
 export const AUTH_API_REDUCER_KEY = 'authApi';
@@ -18,12 +17,6 @@ const authApi = createApi({
         url: '/signin/',
         method: 'POST',
         body: credentials,
-      }),
-    }),
-    getCSRFToken: builder.query<CSRFResponse, null>({
-      query: () => ({
-        url: '/csrfToken/',
-        method: 'GET',
       }),
     }),
   }),

@@ -30,13 +30,6 @@ export const authSlice = createSlice({
         state.isLoggedIn = true;
       },
     );
-    builder.addMatcher(
-      authApi.endpoints.getCSRFToken.matchFulfilled,
-      (state, { payload }) => {
-        // eslint-disable-next-line no-underscore-dangle
-        state.csrf = payload._csrf;
-      },
-    );
   },
 });
 

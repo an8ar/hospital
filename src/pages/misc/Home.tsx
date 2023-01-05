@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { Page } from '~/components/Page';
+import { Procedures } from '~/features/procedures';
 
-export default function HomePage() {
+export function HomePage() {
   return (
     <Page title="Homepage">
-      Home Page
+      <Procedures />
     </Page>
   );
 }

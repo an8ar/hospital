@@ -7,7 +7,9 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "format": "prettier --write src/**/*.{js,jsx,ts,tsx}",
-    "lint": "eslint .",
+    "check-types": "tsc --noemit",
+    "eslint": "eslint .",
+    "lint": "yarn eslint && yarn check-types",
     "lint:fix": "eslint --fix",
     "prepare": "husky install"
   },
