@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 
 import { TextField, Box, Button } from '@mui/material';
 
+import procedureApi from '~/api/procedures/api';
+import { CreateProcedureRequest } from '~/api/procedures/types';
 import userApi from '~/api/user/api';
 import { PhoneVerificationSendParams, PhoneVerificationConfirmParams } from '~/api/user/types';
+import { useAppSelector } from '~/store';
 
 const style = {
   position: 'absolute' as const,
@@ -22,21 +25,35 @@ const style = {
   flexDirection: 'column',
 };
 export function CartSubmit() {
+  const [submit, setSubmit] = useState<CreateProcedureRequest>({
+    verificationId: '',
+    description: '',
+    procedures: [],
+  });
   const defaultPhoneNumber:PhoneVerificationSendParams = { countryCode: 'KZ', phone: '' };
   const [number, setNumber] = useState<PhoneVerificationSendParams>(defaultPhoneNumber);
+  const cartProcedures = useAppSelector((state) => state.cartSlice.procedures);
   const defaultVerNum:PhoneVerificationConfirmParams = { verificationId: '', code: '' };
   const [verification, setVerification] = useState<PhoneVerificationConfirmParams>(defaultVerNum);
   const [sendVerification] = userApi.endpoints.sendVerification.useMutation();
   const [confirmVerification] = userApi.endpoints.confirmVerification.useMutation();
-
+  const [createProcedures] = procedureApi.endpoints.createProcedures.useMutation();
   async function handleNumberSubmit() {
     const result = await sendVerification(number).unwrap();
+    setSubmit({
+      ...submit,
+      verificationId: result.verificationId,
+      description: ' 11 утра - 11 вечера',
+      procedures: cartProcedures.map((item) => ({ id: item.id, quantity: item.quantity })),
+    });
     setVerification({ ...verification, verificationId: result.verificationId });
-    console.log(result);
   }
   async function handleVerification() {
-    const response = await confirmVerification(verification).unwrap();
-    console.log(response);
+    const res = await confirmVerification(verification).unwrap();
+    console.log(res);
+
+    await createProcedures(submit);
+    console.log(submit);
   }
   return (
     <Box sx={{ ...style }}>
