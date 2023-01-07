@@ -52,7 +52,7 @@ export function CartCheckout() {
   return (
     <>
       <Grid container spacing={3} sx={{ ...gridStyle }}>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={12}>
           <Card sx={{ mb: 3 }}>
             <CardHeader
               title={(
@@ -71,7 +71,7 @@ export function CartCheckout() {
             {!isEmptyCart ? (
               <Scrollbar>
                 <CartProcedureList
-                  procedure={cart}
+                  procedures={cart}
                   onDelete={handleDeleteCart}
                   onIncreaseQuantity={handleIncreaseQuantity}
                   onDecreaseQuantity={handleDecreaseQuantity}

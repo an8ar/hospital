@@ -30,38 +30,44 @@ export function CartSubmit() {
     description: '',
     procedures: [],
   });
-  const defaultPhoneNumber:PhoneVerificationSendParams = { countryCode: 'KZ', phone: '' };
-  const [number, setNumber] = useState<PhoneVerificationSendParams>(defaultPhoneNumber);
+
+  const [number, setNumber] = useState<PhoneVerificationSendParams>(
+    { countryCode: 'KZ', phone: '' },
+  );
 
   const cartProcedures = useAppSelector((state) => state.cartSlice.procedures);
 
-  const defaultVerNum:PhoneVerificationConfirmParams = { verificationId: '', code: '' };
-  const [verification, setVerification] = useState<PhoneVerificationConfirmParams>(defaultVerNum);
+  const [verification, setVerification] = useState<PhoneVerificationConfirmParams>(
+    { verificationId: '', code: '' },
+  );
 
   const [sendVerification] = userApi.endpoints.sendVerification.useMutation();
+
   const [confirmVerification] = userApi.endpoints.confirmVerification.useMutation();
+
   const [createProcedures] = procedureApi.endpoints.createProcedures.useMutation();
-  const [codeForm, setCodeForm] = useState(false);
+
+  const [openCodeForm, setOpenCodeForm] = useState(false);
+
   async function handleNumberSubmit() {
     const result = await sendVerification(number).unwrap();
     setSubmit({
       ...submit,
       verificationId: result.verificationId,
-      description: ' 11 утра - 11 вечера',
       procedures: cartProcedures.map((item) => ({ id: item.id, quantity: item.quantity })),
     });
     setVerification({ ...verification, verificationId: result.verificationId });
-    setCodeForm(true);
+    setOpenCodeForm(true);
   }
 
   async function handleVerification() {
-    const res = await confirmVerification(verification).unwrap();
+    await confirmVerification(verification).unwrap();
     await createProcedures(submit);
   }
 
   return (
     <Stack sx={{ ...style }} spacing={2}>
-      {!codeForm && (
+      {!openCodeForm && (
       <>
         Введите номер
         <TextField
@@ -76,13 +82,19 @@ export function CartSubmit() {
         )}
       </>
       )}
-      {codeForm && (
+      {openCodeForm && (
       <>
         Введите код подтверждения
         <TextField
           value={verification.code}
           placeholder="Код подтверждения"
           onChange={(e) => setVerification({ ...verification, code: e.target.value })}
+        />
+        <TextField
+          value={submit.description}
+          placeholder="Коментарии к заказу"
+          multiline
+          onChange={(e) => setSubmit({ ...submit, description: e.target.value })}
         />
         {verification.code.length === 6 && (
         <Button variant="contained" onClick={() => handleVerification()}>
