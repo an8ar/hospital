@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { TextField, Box, Button } from '@mui/material';
+import { TextField, Button, Stack } from '@mui/material';
 
 import procedureApi from '~/api/procedures/api';
 import { CreateProcedureRequest } from '~/api/procedures/types';
@@ -9,11 +9,11 @@ import { PhoneVerificationSendParams, PhoneVerificationConfirmParams } from '~/a
 import { useAppSelector } from '~/store';
 
 const style = {
-  position: 'absolute' as const,
+  position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 350,
   bgcolor: 'background.paper',
   border: '1px solid #000',
   borderRadius: '10px',
@@ -32,12 +32,16 @@ export function CartSubmit() {
   });
   const defaultPhoneNumber:PhoneVerificationSendParams = { countryCode: 'KZ', phone: '' };
   const [number, setNumber] = useState<PhoneVerificationSendParams>(defaultPhoneNumber);
+
   const cartProcedures = useAppSelector((state) => state.cartSlice.procedures);
+
   const defaultVerNum:PhoneVerificationConfirmParams = { verificationId: '', code: '' };
   const [verification, setVerification] = useState<PhoneVerificationConfirmParams>(defaultVerNum);
+
   const [sendVerification] = userApi.endpoints.sendVerification.useMutation();
   const [confirmVerification] = userApi.endpoints.confirmVerification.useMutation();
   const [createProcedures] = procedureApi.endpoints.createProcedures.useMutation();
+  const [codeForm, setCodeForm] = useState(false);
   async function handleNumberSubmit() {
     const result = await sendVerification(number).unwrap();
     setSubmit({
@@ -47,39 +51,47 @@ export function CartSubmit() {
       procedures: cartProcedures.map((item) => ({ id: item.id, quantity: item.quantity })),
     });
     setVerification({ ...verification, verificationId: result.verificationId });
+    setCodeForm(true);
   }
+
   async function handleVerification() {
     const res = await confirmVerification(verification).unwrap();
-    console.log(res);
-
     await createProcedures(submit);
-    console.log(submit);
   }
+
   return (
-    <Box sx={{ ...style }}>
-      Введите номер
-      <TextField
-        value={number.phone}
-        placeholder="Мобильный телефон"
-        onChange={(e) => setNumber({ ...number, phone: e.target.value })}
-      />
-      {number.phone.length === 10 && (
-      <Button variant="contained" onClick={() => handleNumberSubmit()}>
-        Подтвердить номер
-      </Button>
+    <Stack sx={{ ...style }} spacing={2}>
+      {!codeForm && (
+      <>
+        Введите номер
+        <TextField
+          value={number.phone}
+          placeholder="(707)-777-77-77"
+          onChange={(e) => setNumber({ ...number, phone: e.target.value })}
+        />
+        {number.phone.length === 10 && (
+        <Button variant="contained" onClick={() => handleNumberSubmit()}>
+          Подтвердить номер
+        </Button>
+        )}
+      </>
       )}
-      <TextField
-        value={verification.code}
-        placeholder="Код подтверждения"
-        onChange={(e) => setVerification({ ...verification, code: e.target.value })}
-
-      />
-      {verification.code.length === 6 && (
-      <Button variant="contained" onClick={() => handleVerification()}>
-        Оформить заказ
-      </Button>
+      {codeForm && (
+      <>
+        Введите код подтверждения
+        <TextField
+          value={verification.code}
+          placeholder="Код подтверждения"
+          onChange={(e) => setVerification({ ...verification, code: e.target.value })}
+        />
+        {verification.code.length === 6 && (
+        <Button variant="contained" onClick={() => handleVerification()}>
+          Оформить заказ
+        </Button>
+        )}
+      </>
       )}
 
-    </Box>
+    </Stack>
   );
 }

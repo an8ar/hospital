@@ -13,9 +13,11 @@ export function Procedures() {
   const procedures = data || [];
 
   return (
-    <Box>
+    <Box sx={{ maxWidth: '100vw', display: 'flex', flexDirection: 'column' }}>
       <ProcedureList products={procedures} />
-      <CartComponent />
+      <Box sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
+        <CartComponent />
+      </Box>
     </Box>
   );
 }
