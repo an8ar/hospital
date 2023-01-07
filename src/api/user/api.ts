@@ -14,23 +14,22 @@ const userApi = createApi({
   baseQuery,
   reducerPath: USER_API_REDUCER_KEY,
   endpoints: (builder) => ({
-    sendVerification: builder.query<PhoneVerificationSendResponse, PhoneVerificationSendParams>({
+    sendVerification: builder.mutation<PhoneVerificationSendResponse, PhoneVerificationSendParams>({
       query: (body) => ({
         url: '/user/verification/send',
         method: 'POST',
         body,
       }),
     }),
-    confirmVerification: builder.query<
+    confirmVerification: builder.mutation<
       PhoneVerificationConfirmResponse,
-      PhoneVerificationConfirmParams
-    >({
-      query: (body) => ({
-        url: '/user/verification/confirm',
-        method: 'POST',
-        body,
+      PhoneVerificationConfirmParams>({
+        query: (body) => ({
+          url: '/user/verification/confirm',
+          method: 'POST',
+          body,
+        }),
       }),
-    }),
   }),
 });
 

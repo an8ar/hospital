@@ -34,25 +34,24 @@ export function ProcedureCard({ product }: Props) {
   };
 
   return (
-    <Card sx={{ margin: 5 }}>
+    <Card>
       <Stack spacing={2} sx={{ p: 3 }}>
-        <Typography variant="subtitle2" noWrap>
+        <Typography variant="subtitle1" noWrap>
           {product.name}
         </Typography>
-        <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Stack direction="column" spacing={0.5}>
-            <Typography
-              component="span"
-              sx={{ color: 'text.disabled' }}
-            >
-              {getPrice()}
-            </Typography>
+        <Typography variant="subtitle2" component="span">
+          {product.description}
+        </Typography>
+        <Stack direction="column" spacing={0.5} alignItems="center">
+          <Typography
+            component="span"
+          >
+            {getPrice()}
+          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
             {cartProcedure ? (
-              <>
-                <Button onClick={() => dispatch(removeProcedure(product))}>
-                  Удалить
-                </Button>
-                <Box sx={{ display: 'flex' }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <Button onClick={() => dispatch(addToCart(product))}>
                     <AddIcon />
                   </Button>
@@ -63,16 +62,16 @@ export function ProcedureCard({ product }: Props) {
                     <RemoveIcon />
                   </Button>
                 </Box>
-              </>
+                <Button onClick={() => dispatch(removeProcedure(product))}>
+                  Удалить
+                </Button>
+              </Box>
             ) : (
               <Button onClick={() => dispatch(addToCart(product))}>
                 Добавить
               </Button>
             ) }
-            <Typography component="span">
-              {product.description}
-            </Typography>
-          </Stack>
+          </Box>
         </Stack>
       </Stack>
     </Card>
