@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
-import { TextField, Button, Stack } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import {
+  TextField, Stack, Box,
+} from '@mui/material';
+import { useSnackbar } from 'notistack';
 
 import procedureApi from '~/api/procedures/api';
 import { CreateProcedureRequest } from '~/api/procedures/types';
@@ -25,12 +29,13 @@ const style = {
   flexDirection: 'column',
 };
 export function CartSubmit() {
+  const { enqueueSnackbar } = useSnackbar();
   const [submit, setSubmit] = useState<CreateProcedureRequest>({
     verificationId: '',
     description: '',
     procedures: [],
   });
-
+  const [loading, setLoading] = useState(false);
   const [number, setNumber] = useState<PhoneVerificationSendParams>(
     { countryCode: 'KZ', phone: '' },
   );
@@ -50,7 +55,10 @@ export function CartSubmit() {
   const [openCodeForm, setOpenCodeForm] = useState(false);
 
   async function handleNumberSubmit() {
+    setLoading(true);
     const result = await sendVerification(number).unwrap();
+    enqueueSnackbar('На ваш whatsApp отпрален код', { variant: 'success' });
+    setLoading(false);
     setSubmit({
       ...submit,
       verificationId: result.verificationId,
@@ -61,8 +69,12 @@ export function CartSubmit() {
   }
 
   async function handleVerification() {
+    setLoading(true);
     await confirmVerification(verification).unwrap();
     await createProcedures(submit);
+    enqueueSnackbar('Ваш заказ отпрален докторам', { variant: 'success' });
+
+    setLoading(false);
   }
 
   return (
@@ -76,9 +88,18 @@ export function CartSubmit() {
           onChange={(e) => setNumber({ ...number, phone: e.target.value })}
         />
         {number.phone.length === 10 && (
-        <Button variant="contained" onClick={() => handleNumberSubmit()}>
-          Подтвердить номер
-        </Button>
+        <Box>
+          <LoadingButton
+            loading={loading}
+            variant="contained"
+            onClick={() => {
+              handleNumberSubmit();
+            }}
+          >
+            Подтвердить номер
+          </LoadingButton>
+
+        </Box>
         )}
       </>
       )}
@@ -97,9 +118,9 @@ export function CartSubmit() {
           onChange={(e) => setSubmit({ ...submit, description: e.target.value })}
         />
         {verification.code.length === 6 && (
-        <Button variant="contained" onClick={() => handleVerification()}>
+        <LoadingButton loading={loading} variant="contained" onClick={() => handleVerification()}>
           Оформить заказ
-        </Button>
+        </LoadingButton>
         )}
       </>
       )}
