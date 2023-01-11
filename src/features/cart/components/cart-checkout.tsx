@@ -1,23 +1,20 @@
 import React from 'react';
 
 import {
-  Grid, Card, Button, CardHeader, Typography, Modal, Box,
+  Grid, Card, Button, CardHeader, Typography, Dialog, Box, styled,
 } from '@mui/material';
 import sum from 'lodash/sum';
 
-// @mui
-// redux
+import { BottomDrawer } from '~/components/bottom-drawer';
 import EmptyContent from '~/components/EmptyContent';
 import Scrollbar from '~/components/Scrollbar';
 import { Procedure } from '~/features/procedures';
+import { useResponsive } from '~/hooks/useResponsive';
 import { useAppDispatch, useAppSelector } from '~/store';
 
 import {
   addToCart, removeProcedure, decrementQuantity,
 } from '../cart-slice';
-// routes
-// components
-//
 import { CartProcedureList } from './cart-procedure-list';
 import { CartSubmit } from './cart-submit';
 
@@ -29,6 +26,7 @@ export function CartCheckout() {
   const cart = useAppSelector((state) => state.cartSlice.procedures);
 
   const totalItems = sum(cart.map((item) => item.quantity));
+  const isPhone = useResponsive('down', 'sm');
 
   const isEmptyCart = cart.length === 0;
 
@@ -45,6 +43,19 @@ export function CartCheckout() {
   };
 
   const [open, setOpen] = React.useState(false);
+
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
+  const handleOpenModal = () => {
+    setOpen(true);
+  };
+  const cartActionProps = {
+    open,
+    onClose: handleCloseModal,
+    onOpen: handleOpenModal,
+  };
+
   return (
     <>
       <Grid container spacing={3} direction="column" justifyContent="center" alignItems="center">
@@ -87,20 +98,52 @@ export function CartCheckout() {
             type="submit"
             variant="contained"
             disabled={cart.length === 0}
-            onClick={() => setOpen(true)}
+            onClick={handleOpenModal}
           >
             Оформить заказ
           </Button>
         </Grid>
       </Grid>
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-      >
-        <Box>
-          <CartSubmit />
-        </Box>
-      </Modal>
+      {!isPhone && <CartModal {...cartActionProps} />}
+      {isPhone && <CartDrawer {...cartActionProps} />}
     </>
   );
 }
+
+type CartActionModalProps = {
+  onClose: VoidFunction;
+  open: boolean;
+};
+function CartModal({
+  open, onClose,
+}: CartActionModalProps) {
+  return (
+    <Dialog
+      maxWidth="sm"
+      fullWidth
+      open={open}
+      onClose={onClose}
+    >
+      <CartSubmit />
+    </Dialog>
+  );
+}
+function CartDrawer({
+  open, onClose,
+}: CartActionModalProps) {
+  return (
+    <BottomDrawerStyle
+      open={open}
+      onClose={onClose}
+    >
+      <Box>
+        <CartSubmit />
+      </Box>
+    </BottomDrawerStyle>
+  );
+}
+const BottomDrawerStyle = styled(BottomDrawer)(({ theme }) => ({
+  '.MuiDrawer-paper': {
+    height: `calc(70% - ${theme.spacing(4)})`,
+  },
+}));

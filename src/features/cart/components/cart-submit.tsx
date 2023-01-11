@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 
 import { LoadingButton } from '@mui/lab';
 import {
-  TextField, Stack, Box,
+  TextField, Stack, Box, Typography,
 } from '@mui/material';
 import { useSnackbar } from 'notistack';
+import { useNavigate } from 'react-router-dom';
 
 import procedureApi from '~/api/procedures/api';
 import { CreateProcedureRequest } from '~/api/procedures/types';
@@ -13,23 +14,16 @@ import { PhoneVerificationSendParams, PhoneVerificationConfirmParams } from '~/a
 import { useAppSelector } from '~/store';
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 350,
-  bgcolor: 'background.paper',
-  border: '1px solid #000',
-  borderRadius: '10px',
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
+  justifyntent: 'center',
+  marginTop: 2,
+  marginBottom: 2,
 };
 export function CartSubmit() {
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
   const [submit, setSubmit] = useState<CreateProcedureRequest>({
     verificationId: '',
     description: '',
@@ -73,15 +67,17 @@ export function CartSubmit() {
     await confirmVerification(verification).unwrap();
     await createProcedures(submit);
     enqueueSnackbar('Ваш заказ отпрален докторам', { variant: 'success' });
-
     setLoading(false);
+    navigate('/');
   }
 
   return (
     <Stack sx={{ ...style }} spacing={2}>
       {!openCodeForm && (
       <>
-        Введите номер
+        <Typography>
+          Введите номер
+        </Typography>
         <TextField
           value={number.phone}
           placeholder="(707)-777-77-77"
@@ -105,7 +101,9 @@ export function CartSubmit() {
       )}
       {openCodeForm && (
       <>
-        Введите код подтверждения
+        <Typography>
+          Введите код подтверждения
+        </Typography>
         <TextField
           value={verification.code}
           placeholder="Код подтверждения"
