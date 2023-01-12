@@ -44,16 +44,12 @@ export function CartCheckout() {
     dispatch(decrementQuantity(procedure));
   };
 
-  const gridStyle = {
-    display: 'flex', flexDirection: 'column',
-  };
-
   const [open, setOpen] = React.useState(false);
   return (
     <>
-      <Grid container spacing={3} sx={{ ...gridStyle }}>
-        <Grid item xs={12} md={12}>
-          <Card sx={{ mb: 3 }}>
+      <Grid container spacing={3} direction="column" justifyContent="center" alignItems="center">
+        <Grid item xs={12} sm container>
+          <Card sx={{ minWidth: '100%' }}>
             <CardHeader
               title={(
                 <Typography variant="h6">
@@ -65,7 +61,6 @@ export function CartCheckout() {
                   </Typography>
                 </Typography>
             )}
-              sx={{ mb: 3 }}
             />
 
             {!isEmptyCart ? (
@@ -86,10 +81,9 @@ export function CartCheckout() {
           </Card>
         </Grid>
 
-        <Grid item xs={1} md={2}>
+        <Grid item xs={1}>
           <Button
-            fullWidth
-            size="large"
+            size="small"
             type="submit"
             variant="contained"
             disabled={cart.length === 0}
