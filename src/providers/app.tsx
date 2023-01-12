@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { SnackbarProvider } from 'notistack';
 import { ErrorBoundary } from 'react-error-boundary';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
@@ -41,17 +42,19 @@ export function AppProvider({ children }: AppProviderProps) {
         </div>
       )}
     >
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <HelmetProvider>
-          <Provider store={store}>
-            <PersistGate loading={<CircularProgress />} persistor={persistor}>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <ThemeProvider>{children}</ThemeProvider>
-              </LocalizationProvider>
-            </PersistGate>
-          </Provider>
-        </HelmetProvider>
-      </ErrorBoundary>
+      <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <HelmetProvider>
+            <Provider store={store}>
+              <PersistGate loading={<CircularProgress />} persistor={persistor}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <ThemeProvider>{children}</ThemeProvider>
+                </LocalizationProvider>
+              </PersistGate>
+            </Provider>
+          </HelmetProvider>
+        </ErrorBoundary>
+      </SnackbarProvider>
     </React.Suspense>
   );
 }

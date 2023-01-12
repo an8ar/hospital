@@ -3,7 +3,7 @@ import React from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import {
-  Card, Typography, Stack, Button, Box,
+  Card, Typography, Button, Box,
 } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../../store';
@@ -34,46 +34,55 @@ export function ProcedureCard({ product }: Props) {
   };
 
   return (
-    <Card>
-      <Stack spacing={2} sx={{ p: 3 }}>
+    <Card variant="outlined" sx={{ p: 3, marginBottom: 3, mx: '2px' }}>
+
+      <Box>
         <Typography variant="subtitle1" noWrap>
           {product.name}
         </Typography>
-        <Typography variant="subtitle2" component="span">
+        <Typography variant="body2" component="span">
           {product.description}
         </Typography>
-        <Stack direction="column" spacing={0.5} alignItems="center">
-          <Typography
-            component="span"
-          >
-            {getPrice()}
-          </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {cartProcedure ? (
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Button onClick={() => dispatch(addToCart(product))}>
-                    <AddIcon />
-                  </Button>
-                  <Typography>
-                    {cartProcedure.quantity}
-                  </Typography>
-                  <Button onClick={() => dispatch(decrementQuantity(product))}>
-                    <RemoveIcon />
-                  </Button>
-                </Box>
-                <Button onClick={() => dispatch(removeProcedure(product))}>
-                  Удалить
+      </Box>
+
+      <Box>
+        <Typography
+          component="span"
+          variant="subtitle2"
+        >
+          Цена:
+          {' '}
+          {getPrice()}
+        </Typography>
+
+        <Box sx={{
+          flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-end',
+        }}
+        >
+          {cartProcedure ? (
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Button onClick={() => dispatch(addToCart(product))}>
+                  <AddIcon fontSize="small" />
+                </Button>
+                <Typography>
+                  {cartProcedure.quantity}
+                </Typography>
+                <Button onClick={() => dispatch(decrementQuantity(product))}>
+                  <RemoveIcon fontSize="small" />
                 </Button>
               </Box>
-            ) : (
-              <Button onClick={() => dispatch(addToCart(product))}>
-                Добавить
+              <Button onClick={() => dispatch(removeProcedure(product))}>
+                Удалить
               </Button>
-            ) }
-          </Box>
-        </Stack>
-      </Stack>
+            </Box>
+          ) : (
+            <Button onClick={() => dispatch(addToCart(product))}>
+              Добавить
+            </Button>
+          ) }
+        </Box>
+      </Box>
     </Card>
   );
 }

@@ -16,7 +16,7 @@ export function ProcedureList({ products }: Props) {
     <Box
       sx={{
         display: 'grid',
-        gap: 3,
+        gap: 1,
         gridTemplateColumns: {
           xs: 'repeat(1, 1fr)',
           sm: 'repeat(2, 1fr)',

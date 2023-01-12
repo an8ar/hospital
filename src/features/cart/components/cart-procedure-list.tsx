@@ -39,7 +39,10 @@ export function CartProcedureList({
 
     <Box sx={{ padding: '3vh' }}>
       {procedures.map((item) => (
-        <Box sx={{ display: 'flex', flexDirection: 'column', borderTop: '1px dotted black' }}>
+        <Box
+          sx={{ display: 'flex', flexDirection: 'column', borderTop: '1px dotted black' }}
+          key={item.id}
+        >
           <Typography variant="subtitle2">
             {item.name}
           </Typography>
