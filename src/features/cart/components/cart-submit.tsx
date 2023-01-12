@@ -133,6 +133,7 @@ export function CartSubmit() {
             {...register('code')}
             placeholder="Код подтверждения"
             error={!!errors.code?.message}
+            type="tel"
             helperText={errors.code?.message}
           />
           <TextField
