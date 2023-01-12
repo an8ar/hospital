@@ -42,7 +42,7 @@ export function AppProvider({ children }: AppProviderProps) {
         </div>
       )}
     >
-      <SnackbarProvider>
+      <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <HelmetProvider>
             <Provider store={store}>
