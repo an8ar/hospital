@@ -5,6 +5,7 @@ import {
 } from 'redux-persist';
 
 import authApi, { AUTH_API_REDUCER_KEY } from '~/api/auth/api';
+import cityApi, { CITY_API_REDUCER_KEY } from '~/api/city';
 import procedureApi, { PROCEDURES_API_REDUCER_KEY } from '~/api/procedures/api';
 import userApi, { USER_API_REDUCER_KEY } from '~/api/user/api';
 import { authReducer, authSlice } from '~/features/auth';
@@ -17,6 +18,7 @@ const reducers = {
   [authSlice.name]: authReducer,
   [cartSlice.name]: cartReducer,
   [AUTH_API_REDUCER_KEY]: authApi.reducer,
+  [CITY_API_REDUCER_KEY]: cityApi.reducer,
   [PROCEDURES_API_REDUCER_KEY]: procedureApi.reducer,
   [USER_API_REDUCER_KEY]: userApi.reducer,
 };
@@ -38,7 +40,9 @@ export const store = configureStore({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
-  }).concat([authApi.middleware, procedureApi.middleware, userApi.middleware, rtkQueryErrorLogger]),
+  }).concat([authApi.middleware, procedureApi.middleware, userApi.middleware, cityApi.middleware,
+    rtkQueryErrorLogger,
+  ]),
 });
 
 export const persistor = persistStore(store);

@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import procedureApi from '~/api/procedures/api';
 
-import { CartComponent } from '../../cart';
-import { ProcedureList } from './procedure-list';
+import { NewList } from './list';
 
 export function Procedures() {
   const { data, isLoading } = procedureApi.endpoints.getProcedures.useQuery(null);
@@ -13,11 +12,13 @@ export function Procedures() {
   const procedures = data || [];
 
   return (
-    <Box sx={{ maxWidth: '100vw', display: 'flex', flexDirection: 'column' }}>
-      <ProcedureList products={procedures} />
-      <Box sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
-        <CartComponent />
-      </Box>
+    <Box sx={{ flex: 5 }}>
+      <Typography
+        textAlign="center"
+      >
+        Выберите услуги
+      </Typography>
+      <NewList products={procedures} />
     </Box>
   );
 }

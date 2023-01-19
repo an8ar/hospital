@@ -3,8 +3,7 @@ import React from 'react';
 import { styled, Container, Box } from '@mui/material';
 
 import { Page } from '~/components/Page';
-import { CartCheckout } from '~/features/cart';
-import { Procedures } from '~/features/procedures';
+import { CheckoutForm } from '~/features/checkout';
 
 const ContentStyle = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -15,15 +14,13 @@ const ContentStyle = styled('div')(({ theme }) => ({
   padding: '4vh',
   border: '1px black solid',
 }));
-
-export function HomePage() {
+export function SubmitPage() {
   return (
     <Page title="Homepage">
       <Container sx={{ paddingTop: '5vh' }}>
         <Box sx={{ textAlign: 'center' }}>Nutrix(I need logo)</Box>
         <ContentStyle>
-          <Procedures />
-          <CartCheckout />
+          <CheckoutForm />
         </ContentStyle>
       </Container>
     </Page>
