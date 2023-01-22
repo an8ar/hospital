@@ -14,12 +14,12 @@ import { removeProcedure } from '../cart-slice';
 // ----------------------------------------------------------------------
 
 export function CartList() {
-  const cart = useAppSelector((state) => state.cartSlice.procedures);
+  const cartProcedures = useAppSelector((state) => state.cartSlice.procedures);
   const dispatch = useAppDispatch();
   return (
     <List>
       <Stack spacing={1}>
-        {cart.map((value) => {
+        {cartProcedures.map((value) => {
           const labelId = `list-label-${value.id}`;
 
           return (

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Stack, styled } from '@mui/material';
+import { Stack, styled, Box } from '@mui/material';
 import Chip from '@mui/material/Chip';
 
 import { removeProcedure } from '~/features/cart';
 import { Procedure } from '~/features/procedures';
 import { useAppSelector, useAppDispatch } from '~/store';
 
-const MyComponent = styled('div')({
+const BoxStyle = styled(Box)({
   color: 'darkslategray',
   display: 'flex',
   flexDirection: 'column',
@@ -30,7 +30,7 @@ export function SelectedProcedures() {
     dispatch(removeProcedure(procedure));
   }
   return (
-    <MyComponent>
+    <BoxStyle>
       <Stack spacing={2} margin={1.5}>
         {procedures.map((item) => (
           <Chip
@@ -40,6 +40,6 @@ export function SelectedProcedures() {
           />
         ))}
       </Stack>
-    </MyComponent>
+    </BoxStyle>
   );
 }

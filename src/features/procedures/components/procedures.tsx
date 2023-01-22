@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material';
 
 import procedureApi from '~/api/procedures/api';
 
-import { NewList } from './list';
+import { ProcedureList } from './procedure-list';
 
 export function Procedures() {
   const { data, isLoading } = procedureApi.endpoints.getProcedures.useQuery(null);
@@ -15,10 +15,12 @@ export function Procedures() {
     <Box sx={{ flex: 5 }}>
       <Typography
         textAlign="center"
+        fontSize="20px"
+        py="10px"
       >
         Выберите услуги
       </Typography>
-      <NewList products={procedures} />
+      <ProcedureList products={procedures} />
     </Box>
   );
 }

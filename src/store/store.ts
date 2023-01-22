@@ -5,7 +5,7 @@ import {
 } from 'redux-persist';
 
 import authApi, { AUTH_API_REDUCER_KEY } from '~/api/auth/api';
-import cityApi, { CITY_API_REDUCER_KEY } from '~/api/city';
+import cityApi, { CITY_API_REDUCER_KEY } from '~/api/city/city';
 import procedureApi, { PROCEDURES_API_REDUCER_KEY } from '~/api/procedures/api';
 import userApi, { USER_API_REDUCER_KEY } from '~/api/user/api';
 import { authReducer, authSlice } from '~/features/auth';

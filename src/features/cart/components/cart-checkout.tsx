@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import EmptyContent from '~/components/EmptyContent';
 import { useAppSelector } from '~/store';
 
-import { CartList } from './list';
+import { CartList } from './cart-list';
 // ----------------------------------------------------------------------
 
 export function CartCheckout() {
@@ -19,6 +19,7 @@ export function CartCheckout() {
   return (
     <Box sx={{
       flex: 3,
+      background: '#F8F8F8',
     }}
     >
       {isEmptyCart ? (
@@ -34,13 +35,16 @@ export function CartCheckout() {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            alignItems: 'flex-end',
+            alignItems: 'center',
             height: '100%',
+
           }}
           >
             <Box sx={{ flexGrow: 1 }}>
               <Typography
                 textAlign="center"
+                fontSize="20px"
+                py="10px"
               >
                 Корзина
               </Typography>
@@ -51,7 +55,7 @@ export function CartCheckout() {
                 size="small"
                 variant="contained"
                 disabled={cart.length === 0}
-                onClick={() => navigate('/submit')}
+                onClick={() => navigate('/checkout')}
               >
                 Перейти к оформлению
               </Button>

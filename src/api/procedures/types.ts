@@ -2,7 +2,7 @@ import { Procedure } from '~/features/procedures';
 
 export type GetProceduresResponse = Procedure[];
 
-type ShortProcedure = {
+export type ShortProcedure = {
     id: number;
     quantity: number;
 }

@@ -18,7 +18,7 @@ import { Procedure } from '../types';
 type Props = {
   products: Procedure[];
 };
-export function NewList({ products }: Props) {
+export function ProcedureList({ products }: Props) {
   const cart = useAppSelector((state) => state.cartSlice.procedures);
   const dispatch = useAppDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -42,6 +42,8 @@ export function NewList({ products }: Props) {
                 key={procedure.slug}
                 secondaryAction={(
                   <IconButton
+                    edge="end"
+                    aria-label="comments"
                     value={procedure.id}
                     onClick={() => handleAddProcedure(procedure)}
                   >
