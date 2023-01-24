@@ -31,13 +31,11 @@ export function CheckoutFormInfo({ setStep }:Props) {
   const { enqueueSnackbar } = useSnackbar();
 
   const {
-    data: fetchedCities,
+    data: cities = [],
     isLoading,
-  } = cityApi.endpoints.getCities.useQuery({ argument: null });
+  } = cityApi.endpoints.getCities.useQuery(null);
 
   if (isLoading) return (<>Идет загрузка...</>);
-
-  const cities = fetchedCities || [];
 
   const onNextStep = async ({ phone }: InformationFormValues) => {
     const { verificationId } = await sendVerification({ countryCode: 'KZ', phone }).unwrap();

@@ -3,6 +3,4 @@ export interface CityResponse {
     name: string,
     slug: string
 }
-export interface CityRequest{
-    argument: null
-}
+export type CityRequest = null;

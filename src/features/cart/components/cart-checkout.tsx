@@ -6,6 +6,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 import EmptyContent from '~/components/EmptyContent';
+import { PATH_CHECKOUT } from '~/routes/paths';
 import { useAppSelector } from '~/store';
 
 import { CartList } from './cart-list';
@@ -19,7 +20,6 @@ export function CartCheckout() {
   return (
     <Box sx={{
       flex: 3,
-      background: '#F8F8F8',
     }}
     >
       {isEmptyCart ? (
@@ -55,7 +55,7 @@ export function CartCheckout() {
                 size="small"
                 variant="contained"
                 disabled={cart.length === 0}
-                onClick={() => navigate('/checkout')}
+                onClick={() => navigate(PATH_CHECKOUT.root)}
               >
                 Перейти к оформлению
               </Button>

@@ -2,13 +2,13 @@ import { Procedure } from '~/features/procedures';
 
 export type GetProceduresResponse = Procedure[];
 
-export type ShortProcedure = {
+export type ProcedureWithQuantity = {
     id: number;
     quantity: number;
 }
 
 export type CreateProcedureRequest = {
-    procedures: ShortProcedure[],
+    procedures: ProcedureWithQuantity[],
     description: string,
     verificationId: string,
     cityId: number,

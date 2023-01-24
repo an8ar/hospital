@@ -16,44 +16,39 @@ export default function FormStepper({ activeStep }: PropsStepper) {
   const style = {
     fontSize: '11px',
   };
+
+  const firstStep = {
+    fontWeight: 'none',
+  };
+
+  const secondStep = {
+    fontWeight: 'none',
+  };
+
   if (!isMobile) {
     style.fontSize = '16px';
   }
 
+  if (activeStep === 0) {
+    firstStep.fontWeight = 'bold';
+  } else {
+    secondStep.fontWeight = 'bold';
+  }
+
   return (
     <Box sx={{
-      display: 'flex', justifyContent: 'center', alignItems: 'center',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      bgcolor: '#CCF0FF',
+      padding: '3px 9px',
+      borderRadius: '30px',
+
     }}
     >
-      {activeStep === 0 && (
-      <Box sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        bgcolor: '#CCF0FF',
-        padding: '3px 9px',
-        borderRadius: '30px',
-      }}
-      >
-        <Typography sx={{ ...style }} fontWeight="bold">Заполните заявку</Typography>
-        <KeyboardDoubleArrowRightIcon />
-        <Typography sx={{ ...style }}>Подтвердить номер телефона</Typography>
-      </Box>
-      )}
-      {activeStep === 1 && (
-      <Box sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        bgcolor: '#CCF0FF',
-        borderRadius: '30px',
-      }}
-      >
-        <Typography sx={{ ...style }}>Заполните заявку</Typography>
-        <KeyboardDoubleArrowRightIcon />
-        <Typography sx={{ ...style }} fontWeight="bold">Подтвердить номер телефона</Typography>
-      </Box>
-      )}
+      <Typography sx={{ ...style, ...firstStep }}>Заполните заявку</Typography>
+      <KeyboardDoubleArrowRightIcon />
+      <Typography sx={{ ...style, ...secondStep }}>Подтвердить номер телефона</Typography>
     </Box>
   );
 }
