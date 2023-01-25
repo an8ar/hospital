@@ -30,33 +30,37 @@ export function ProcedureCard({ procedure }: ProcedureCardProps) {
           {' '}
           тг
         </Typography>
-        <IconButton>
-          {
-            !isSelected
-              ? (
-                <Iconify
-                  icon="material-symbols:add-circle"
-                  onClick={() => {
-                    dispatch(addProcedure({ ...procedure, quantity: 1 }));
-                  }}
-                  width={22}
-                  height={22}
-                  color="blue"
-                />
-              )
-              : (
-                <Iconify
-                  icon="mdi:check-circle"
-                  onClick={() => {
-                    dispatch(removeProcedure({ ...procedure, quantity: 0 }));
-                  }}
-                  width={22}
-                  height={22}
-                  color="green"
-                />
-              )
-          }
-        </IconButton>
+        {
+        !isSelected
+          ? (
+            <IconButton
+              onClick={() => {
+                dispatch(addProcedure({ ...procedure, quantity: 1 }));
+              }}
+            >
+              <Iconify
+                icon="material-symbols:add-circle"
+                width={22}
+                height={22}
+                color="blue"
+              />
+            </IconButton>
+          )
+          : (
+            <IconButton
+              onClick={() => {
+                dispatch(removeProcedure({ ...procedure, quantity: 0 }));
+              }}
+            >
+              <Iconify
+                icon="mdi:check-circle"
+                width={22}
+                height={22}
+                color="green"
+              />
+            </IconButton>
+          )
+      }
       </Box>
       <Divider />
     </>

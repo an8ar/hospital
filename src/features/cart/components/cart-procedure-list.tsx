@@ -6,9 +6,9 @@ import {
 
 import { SelectedProcedureList } from '~/features/procedures';
 
-import { CartProcedureList } from '../types';
+import { CartProcedures } from '../types';
 
-export function CartComponentList({ selectedProcedures }: CartProcedureList) {
+export function CardProcedureList({ selectedProcedures }: CartProcedures) {
   const isCartEmpty = selectedProcedures.length === 0;
   return (
     <BoxStyle>

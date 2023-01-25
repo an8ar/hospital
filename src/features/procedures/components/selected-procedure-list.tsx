@@ -11,7 +11,9 @@ import { useAppDispatch, useAppSelector } from '~/store';
 
 export function SelectedProcedureList() {
   const { selectedProcedures } = useAppSelector((state) => state.cartSlice);
+
   const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
   return (
     <BoxStyle>
@@ -27,10 +29,11 @@ export function SelectedProcedureList() {
               {' '}
               тг
             </Typography>
-            <IconButton>
+            <IconButton
+              onClick={() => dispatch(removeProcedure({ ...procedure, quantity: 0 }))}
+            >
               <Iconify
                 icon="mdi:remove-circle"
-                onClick={() => dispatch(removeProcedure({ ...procedure, quantity: 0 }))}
                 width={24}
                 height={24}
                 color="red"

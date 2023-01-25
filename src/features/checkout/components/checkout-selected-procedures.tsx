@@ -15,6 +15,7 @@ export function CheckoutSelectedProcedures() {
   return (
     <TextField
       multiline
+      disabled
       InputProps={{
         startAdornment: (
           <Stack spacing={1}>
@@ -39,7 +40,6 @@ export function CheckoutSelectedProcedures() {
           </Stack>
         ),
       }}
-      disabled
     />
   );
 }

@@ -8,7 +8,7 @@ import { Logo } from '~/assets/logo';
 import { Procedures } from '~/features/procedures';
 import { useAppSelector } from '~/store';
 
-import { CartComponentList } from './cart-selected';
+import { CardProcedureList } from './cart-procedure-list';
 
 export function CartComponent() {
   const { data: procedures = [], isLoading } = procedureApi.endpoints.getProcedures.useQuery();
@@ -32,7 +32,7 @@ export function CartComponent() {
           : (
             <BoxStyle>
               <Procedures procedures={procedures} />
-              <CartComponentList selectedProcedures={selectedProcedures} />
+              <CardProcedureList selectedProcedures={selectedProcedures} />
             </BoxStyle>
           )
 
@@ -56,7 +56,8 @@ const ContainerStyle = styled(Container)(({ theme }) => ({
   display: 'flex',
   height: '100vh',
   flexDirection: 'column',
-}));
+}
+));
 const CenteredBoxStyle = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center',

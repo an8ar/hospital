@@ -9,7 +9,13 @@ type ShowStepsProps = {
 }
 export function CheckoutSteps({ activePage }: ShowStepsProps) {
   const steps = ['Заполнить заявку', 'Подтвердить номер телефона'];
+
   const isLaptop = useResponsive('up', 'sm');
+
+  function checkForLastIndex(index:number) {
+    const isLastNumber = index + 1 === steps.length;
+    return isLastNumber;
+  }
   return (
     <Box
       display="inline-flex"
@@ -23,23 +29,26 @@ export function CheckoutSteps({ activePage }: ShowStepsProps) {
             align="center"
             sx={{
               color: (index === activePage) ? 'black' : 'grey.500',
-              fontSize: (isLaptop) ? '18px' : '12px',
+              fontSize: (isLaptop) ? '24px' : '12px',
               fontWeight: 'bold',
             }}
           >
             {step}
           </Typography>
-          {index + 1 !== steps.length
-              && (
-              <Typography
-                sx={{
-                  fontSize: (isLaptop) ? '18px' : '12px',
-                  mx: 2,
-                }}
-              >
-                {'>>'}
-              </Typography>
-              )}
+          {
+          !checkForLastIndex(index)
+          && (
+          <Typography
+            sx={{
+              fontSize: (isLaptop) ? '24px' : '12px',
+              fontWeight: 'bold',
+              mx: 1,
+            }}
+          >
+            {'>>'}
+          </Typography>
+          )
+}
         </>
       ))}
     </Box>

@@ -12,4 +12,6 @@ export type ConfirmVerificationRequest={
     verificationId: string
 }
 
-export type ConfirmVerificationResponse={isVerified: boolean}
+export type ConfirmVerificationResponse={
+    isVerified: boolean
+}
