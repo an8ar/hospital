@@ -6,10 +6,14 @@ import {
 
 import { SelectedProcedureList } from '~/features/procedures';
 
-import { CartProcedures } from '../types';
+import { CartProcedure } from '../types';
 
-export function CardProcedureList({ selectedProcedures }: CartProcedures) {
-  const isCartEmpty = selectedProcedures.length === 0;
+type CartProcedures = {
+  cartProcedures: CartProcedure[]
+}
+
+export function CardProcedureList({ cartProcedures }: CartProcedures) {
+  const isCartEmpty = cartProcedures.length === 0;
   return (
     <BoxStyle>
       <Typography variant="h6" align="center">

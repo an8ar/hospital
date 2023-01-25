@@ -32,7 +32,7 @@ export function CartComponent() {
           : (
             <BoxStyle>
               <Procedures procedures={procedures} />
-              <CardProcedureList selectedProcedures={selectedProcedures} />
+              <CardProcedureList cartProcedures={selectedProcedures} />
             </BoxStyle>
           )
 
