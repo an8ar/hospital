@@ -1,74 +1,39 @@
 import React from 'react';
 
 import {
-  Box, Typography,
+  Typography, Box, styled,
 } from '@mui/material';
 
-// utils
-// @types
-import { Procedure } from '~/features/procedures';
+import { SelectedProcedureList } from '~/features/procedures';
 
 import { CartProcedure } from '../types';
 
-// ----------------------------------------------------------------------
+type CartProcedures = {
+  cartProcedures: CartProcedure[]
+}
 
-type Props = {
-  procedures: CartProcedure[];
-  onDelete: (id: Procedure) => void;
-  onDecreaseQuantity: (id: Procedure) => void;
-  onIncreaseQuantity: (id: Procedure) => void;
-};
-
-export function CartProcedureList({
-  procedures,
-  onDelete,
-  onIncreaseQuantity,
-  onDecreaseQuantity,
-}: Props) {
-  const getPrice = (minPrice: number, maxPrice: number) => {
-    if (minPrice === maxPrice) {
-      return `${minPrice} тг`;
-    }
-
-    return `${minPrice}  тг - ${maxPrice} тг`;
-  };
-  const min = procedures.reduce((a, b) => a + b.minPrice * b.quantity, 0.00);
-  const max = procedures.reduce((a, b) => a + b.maxPrice * b.quantity, 0.00);
-
+export function CardProcedureList({ cartProcedures }: CartProcedures) {
+  const isCartEmpty = cartProcedures.length === 0;
   return (
-
-    <Box sx={{ padding: '3vh' }}>
-      {procedures.map((item) => (
-        <Box
-          sx={{ display: 'flex', flexDirection: 'column', borderTop: '1px dotted black' }}
-          key={item.id}
-        >
-          <Typography variant="subtitle2">
-            {item.name}
-          </Typography>
-
-          <Typography variant="caption">
-            Количество:
-            {' '}
-            {item.quantity}
-          </Typography>
-
-          <Typography variant="caption">
-            Цена за услугу:
-            {' '}
-            {getPrice(item.minPrice, item.maxPrice)}
-          </Typography>
-        </Box>
-      ))}
-      <Box sx={{ display: 'flex', flexDirection: 'column', borderTop: '1px dotted black' }}>
-        <Typography variant="caption">
-          Итого:
-          {' '}
-          {min}
-          -
-          {max}
-        </Typography>
-      </Box>
-    </Box>
+    <BoxStyle>
+      <Typography variant="h6" align="center">
+        Корзина
+      </Typography>
+      {
+        !isCartEmpty
+          ? (
+            <SelectedProcedureList />
+          )
+          : <Typography align="center" variant="h6">Ваша корзина пуста</Typography>
+    }
+    </BoxStyle>
   );
 }
+const BoxStyle = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  backgroundColor: '#F8F8F8',
+  height: '100%',
+  width: '100%',
+  boxShadow: theme.shadows[3],
+}));

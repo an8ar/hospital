@@ -1,9 +1,6 @@
 import * as React from 'react';
 
-import {
-  Button,
-  CircularProgress,
-} from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { SnackbarProvider } from 'notistack';

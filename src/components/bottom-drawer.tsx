@@ -1,13 +1,12 @@
 import React from 'react';
 
 import {
-  Box,
-  styled, SwipeableDrawer, SwipeableDrawerProps,
+  Box, styled, SwipeableDrawer, SwipeableDrawerProps,
 } from '@mui/material';
 
 type Props = Omit<SwipeableDrawerProps, 'onOpen'> & {
   children?: React.ReactNode;
-  onClose?: VoidFunction
+  onClose?: VoidFunction;
   onOpen?: VoidFunction;
 };
 
@@ -20,9 +19,7 @@ export function BottomDrawer({
 
   return (
     <DrawerStyle {...drawerProps} onClose={onClose} onOpen={handleOnOpen} anchor="bottom">
-      <ContentStyle>
-        {children}
-      </ContentStyle>
+      <ContentStyle>{children}</ContentStyle>
     </DrawerStyle>
   );
 }

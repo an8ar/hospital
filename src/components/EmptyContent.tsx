@@ -18,12 +18,9 @@ interface Props extends BoxProps {
   description?: string;
 }
 
-export default function EmptyContent({
-  title, description, ...other
-}: Props) {
+export default function EmptyContent({ title, description, ...other }: Props) {
   return (
     <RootStyle {...other}>
-
       <Typography variant="h5" gutterBottom>
         {title}
       </Typography>

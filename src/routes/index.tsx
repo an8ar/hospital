@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { AuthRoutes } from '~/pages/auth';
-import { CartRoutes } from '~/pages/cart';
+import { CheckoutRoutes } from '~/pages/checkout';
 import { MiscRoutes } from '~/pages/misc';
 import { lazyImport } from '~/utils/lazyImport';
 
@@ -15,7 +15,7 @@ export function AppRoutes() {
       <Routes>
         {MiscRoutes}
         {AuthRoutes}
-        {CartRoutes}
+        {CheckoutRoutes}
         <Route path="*" element={<Page404 />} key="404" />
       </Routes>
     </BrowserRouter>

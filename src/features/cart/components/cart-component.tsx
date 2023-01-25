@@ -1,30 +1,73 @@
 import React from 'react';
 
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Badge, { BadgeProps } from '@mui/material/Badge';
-import IconButton from '@mui/material/IconButton';
-import { styled } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
+import { LoadingButton } from '@mui/lab';
+import { Container, Box, styled } from '@mui/material';
 
+import procedureApi from '~/api/procedures/api';
+import { Logo } from '~/assets/logo';
+import { Procedures } from '~/features/procedures';
 import { useAppSelector } from '~/store';
 
-const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    right: -3,
-    top: 13,
-    border: `2px solid ${theme.palette.background.paper}`,
-    padding: '0 4px',
-  },
-}));
+import { CardProcedureList } from './cart-procedure-list';
 
 export function CartComponent() {
-  const navigate = useNavigate();
-  const cart = useAppSelector((state) => state.cartSlice.procedures);
+  const { data: procedures = [], isLoading } = procedureApi.endpoints.getProcedures.useQuery();
+  const { selectedProcedures } = useAppSelector((state) => state.cartSlice);
   return (
-    <IconButton aria-label="cart" size="large" onClick={() => navigate('/checkout')}>
-      <StyledBadge badgeContent={cart.length} color="secondary">
-        <ShoppingCartIcon />
-      </StyledBadge>
-    </IconButton>
+    <ContainerStyle>
+      <CenteredBoxStyle>
+        <Logo />
+      </CenteredBoxStyle>
+      {
+        isLoading
+          ? (
+            <BoxButtonStyle>
+              <LoadingButton
+                loading={isLoading}
+                variant="contained"
+                size="large"
+              />
+            </BoxButtonStyle>
+          )
+          : (
+            <BoxStyle>
+              <Procedures procedures={procedures} />
+              <CardProcedureList cartProcedures={selectedProcedures} />
+            </BoxStyle>
+          )
+
+      }
+    </ContainerStyle>
   );
 }
+const BoxStyle = styled(Box)(({ theme }) => (
+  {
+    display: 'grid',
+    gridTemplateColumns: '1fr',
+    width: '100%',
+    marginTop: theme.spacing(3),
+    [theme.breakpoints.up(768)]: {
+      gridTemplateColumns: '3fr 2fr',
+      height: '100%',
+    },
+  }
+));
+const ContainerStyle = styled(Container)(({ theme }) => ({
+  display: 'flex',
+  height: '100vh',
+  flexDirection: 'column',
+}
+));
+const CenteredBoxStyle = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+}
+));
+const BoxButtonStyle = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '50%',
+}
+));

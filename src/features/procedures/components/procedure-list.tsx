@@ -1,31 +1,28 @@
 import React from 'react';
 
-import { Box } from '@mui/material';
+import { Stack, styled } from '@mui/material';
 
 import { Procedure } from '../types';
 import { ProcedureCard } from './procedure-card';
 
-// ----------------------------------------------------------------------
-
-type Props = {
-  products: Procedure[];
-};
-
-export function ProcedureList({ products }: Props) {
+type ProceduresProps={
+  procedures: Procedure[]
+}
+export function ProceduresList({ procedures }:ProceduresProps) {
   return (
-    <Box
-      sx={{
-        display: 'grid',
-        gap: 1,
-        gridTemplateColumns: {
-          xs: 'repeat(1, 1fr)',
-          sm: 'repeat(2, 1fr)',
-          md: 'repeat(3, 1fr)',
-          lg: 'repeat(4, 1fr)',
-        },
-      }}
-    >
-      {products && products.map((item) => <ProcedureCard key={item.id} product={item} />)}
-    </Box>
+    <StackStyle spacing={2} sx={{ mt: 3 }}>
+      {procedures.map((procedure) => (
+        <ProcedureCard procedure={procedure} />
+      ))}
+    </StackStyle>
   );
 }
+const StackStyle = styled(Stack)(({ theme }) => (
+  {
+    borderSpacing: theme.spacing(2),
+    marginTop: theme.spacing(3),
+    [theme.breakpoints.up(768)]: {
+      marginTop: theme.spacing(4),
+    },
+  }
+));
