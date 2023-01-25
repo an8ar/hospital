@@ -21,7 +21,9 @@ export function Page({ children, meta, title }: Props) {
       </Helmet>
 
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}><Logo /></Box>
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+          <Logo />
+        </Box>
         {children}
       </Box>
     </>

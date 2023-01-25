@@ -4,7 +4,6 @@ import { CssBaseline } from '@mui/material';
 import {
   createTheme, ThemeProvider as MUIThemeProvider, StyledEngineProvider,
 } from '@mui/material/styles';
-import { useDarkMode } from 'usehooks-ts';
 
 import breakpoints from './breakpoints';
 import { componentsOverrides } from './overrides';
@@ -18,19 +17,17 @@ type Props = {
 };
 
 export default function ThemeProvider({ children }: Props) {
-  const { isDarkMode } = useDarkMode();
-
   const theme = useMemo(
     () => createTheme({
-      palette: isDarkMode ? palette.dark : palette.light,
+      palette: palette.light,
       typography,
       breakpoints,
       shape: { borderRadius: 8 },
-      shadows: isDarkMode ? shadows.dark : shadows.light,
-      customShadows: isDarkMode ? customShadows.dark : customShadows.light,
+      shadows: shadows.light,
+      customShadows: customShadows.light,
       zIndex,
     }),
-    [isDarkMode],
+    [],
   );
 
   theme.components = componentsOverrides(theme);

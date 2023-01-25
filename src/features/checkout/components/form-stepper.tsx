@@ -14,26 +14,8 @@ export default function FormStepper({ activeStep }: PropsStepper) {
   const isMobile = useResponsive('down', 'sm');
 
   const style = {
-    fontSize: '11px',
+    fontSize: isMobile ? '11px' : '16px',
   };
-
-  const firstStep = {
-    fontWeight: 'none',
-  };
-
-  const secondStep = {
-    fontWeight: 'none',
-  };
-
-  if (!isMobile) {
-    style.fontSize = '16px';
-  }
-
-  if (activeStep === 0) {
-    firstStep.fontWeight = 'bold';
-  } else {
-    secondStep.fontWeight = 'bold';
-  }
 
   return (
     <Box sx={{
@@ -43,12 +25,15 @@ export default function FormStepper({ activeStep }: PropsStepper) {
       bgcolor: '#CCF0FF',
       padding: '3px 9px',
       borderRadius: '30px',
-
     }}
     >
-      <Typography sx={{ ...style, ...firstStep }}>Заполните заявку</Typography>
+      <Typography sx={{ ...style, fontWeight: activeStep === 0 ? 'bold' : 'none' }}>
+        Заполните заявку
+      </Typography>
       <KeyboardDoubleArrowRightIcon />
-      <Typography sx={{ ...style, ...secondStep }}>Подтвердить номер телефона</Typography>
+      <Typography sx={{ ...style, fontWeight: activeStep === 1 ? 'bold' : 'none' }}>
+        Подтвердить номер телефона
+      </Typography>
     </Box>
   );
 }
