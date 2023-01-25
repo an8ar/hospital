@@ -1,14 +1,14 @@
 export interface PaginatedResponse {
-    metadata: PaginationMetadata
+  metadata: PaginationMetadata;
 }
 
 export interface PaginationMetadata {
-    total: number;
-    hasMore: boolean;
-    nextOffset: number
+  total: number;
+  hasMore: boolean;
+  nextOffset: number;
 }
 
 export interface PaginationParams {
-    offset: number;
-    limit: number;
+  offset: number;
+  limit: number;
 }

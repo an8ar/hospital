@@ -1,9 +1,7 @@
 import React from 'react';
 
 import { BoxProps, Box } from '@mui/material';
-import {
-  alpha, useTheme, styled, Theme,
-} from '@mui/material/styles';
+import { alpha, useTheme, styled, Theme } from '@mui/material/styles';
 
 import { ColorSchema } from '../theme/palette';
 
@@ -17,55 +15,51 @@ type RootStyleProps = {
     color: LabelColor;
     variant: LabelVariant;
   };
-}
-const RootStyle = styled('span')<RootStyleProps>(
-  ({
-    theme,
-    ownerState,
-  }) => {
-    const isLight = theme.palette.mode === 'light';
-    const { color, variant } = ownerState;
+};
+const RootStyle = styled('span')<RootStyleProps>(({ theme, ownerState }) => {
+  const isLight = theme.palette.mode === 'light';
+  const { color, variant } = ownerState;
 
-    const styleFilled = (colorVariant: ColorSchema) => ({
-      color: theme.palette[colorVariant].contrastText,
-      backgroundColor: theme.palette[colorVariant].main,
-    });
+  const styleFilled = (colorVariant: ColorSchema) => ({
+    color: theme.palette[colorVariant].contrastText,
+    backgroundColor: theme.palette[colorVariant].main,
+  });
 
-    const styleOutlined = (colorVariant: ColorSchema) => ({
-      color: theme.palette[colorVariant].main,
-      backgroundColor: 'transparent',
-      border: `1px solid ${theme.palette[colorVariant].main}`,
-    });
+  const styleOutlined = (colorVariant: ColorSchema) => ({
+    color: theme.palette[colorVariant].main,
+    backgroundColor: 'transparent',
+    border: `1px solid ${theme.palette[colorVariant].main}`,
+  });
 
-    const styleGhost = (colorVariant: ColorSchema) => ({
-      color: theme.palette[colorVariant][isLight ? 'dark' : 'light'],
-      backgroundColor: alpha(theme.palette[colorVariant].main, 0.16),
-    });
+  const styleGhost = (colorVariant: ColorSchema) => ({
+    color: theme.palette[colorVariant][isLight ? 'dark' : 'light'],
+    backgroundColor: alpha(theme.palette[colorVariant].main, 0.16),
+  });
 
-    return {
-      height: 22,
-      minWidth: 22,
-      lineHeight: 0,
-      borderRadius: 6,
-      cursor: 'default',
-      alignItems: 'center',
-      whiteSpace: 'nowrap',
-      display: 'inline-flex',
-      justifyContent: 'center',
-      padding: theme.spacing(0, 1),
-      color: theme.palette.grey[800],
-      fontSize: theme.typography.pxToRem(12),
-      fontFamily: theme.typography.fontFamily,
-      backgroundColor: theme.palette.grey[300],
-      fontWeight: theme.typography.fontWeightBold,
+  return {
+    height: 22,
+    minWidth: 22,
+    lineHeight: 0,
+    borderRadius: 6,
+    cursor: 'default',
+    alignItems: 'center',
+    whiteSpace: 'nowrap',
+    display: 'inline-flex',
+    justifyContent: 'center',
+    padding: theme.spacing(0, 1),
+    color: theme.palette.grey[800],
+    fontSize: theme.typography.pxToRem(12),
+    fontFamily: theme.typography.fontFamily,
+    backgroundColor: theme.palette.grey[300],
+    fontWeight: theme.typography.fontWeightBold,
 
-      ...(color !== 'default'
-        ? {
+    ...(color !== 'default'
+      ? {
           ...(variant === 'filled' && { ...styleFilled(color) }),
           ...(variant === 'outlined' && { ...styleOutlined(color) }),
           ...(variant === 'ghost' && { ...styleGhost(color) }),
         }
-        : {
+      : {
           ...(variant === 'outlined' && {
             backgroundColor: 'transparent',
             color: theme.palette.text.primary,
@@ -76,9 +70,8 @@ const RootStyle = styled('span')<RootStyleProps>(
             backgroundColor: theme.palette.grey[500_16],
           }),
         }),
-    };
-  },
-);
+  };
+});
 
 // ----------------------------------------------------------------------
 

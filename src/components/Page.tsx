@@ -19,9 +19,7 @@ export function Page({ children, meta, title }: Props) {
         {meta}
       </Helmet>
 
-      <Box>
-        {children}
-      </Box>
+      <Box>{children}</Box>
     </>
   );
 }

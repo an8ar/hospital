@@ -26,9 +26,8 @@ export const baseQueryWithLogout: BaseQueryFn<
 
   const isAuthError = isError && result.error.status === 401;
   // rtk query returns parsing_error when response is just string
-  const isParsingAuthError = isError
-    && result.error.status === 'PARSING_ERROR'
-    && result.error.originalStatus === 401;
+  const isParsingAuthError = isError && result.error.status === 'PARSING_ERROR'
+  && result.error.originalStatus === 401;
 
   if (isParsingAuthError || isAuthError) {
     api.dispatch(logout());

@@ -1,23 +1,31 @@
 import React from 'react';
 
-import { Box } from '@mui/material';
+import { Typography, styled, Box } from '@mui/material';
 
-import procedureApi from '~/api/procedures/api';
+import { Procedure } from '../types';
+import { ProceduresList } from './procedure-list';
 
-import { CartComponent } from '../../cart';
-import { ProcedureList } from './procedure-list';
-
-export function Procedures() {
-  const { data, isLoading } = procedureApi.endpoints.getProcedures.useQuery(null);
-  if (isLoading) return (<>Идет загрузка...</>);
-  const procedures = data || [];
-
+type ProceduresProps={
+  procedures: Procedure[]
+}
+export function Procedures({ procedures }:ProceduresProps) {
   return (
-    <Box sx={{ maxWidth: '100vw', display: 'flex', flexDirection: 'column' }}>
-      <ProcedureList products={procedures} />
-      <Box sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
-        <CartComponent />
-      </Box>
+    <Box>
+      <Typography variant="h6" align="center">Выберите услуги</Typography>
+      <BoxStyle>
+        <ProceduresList procedures={procedures} />
+      </BoxStyle>
     </Box>
   );
 }
+const BoxStyle = styled(Box)(({ theme }) => (
+  {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    [theme.breakpoints.up(768)]: {
+      display: 'flex',
+      flexDirection: 'colunn',
+    },
+  }
+));

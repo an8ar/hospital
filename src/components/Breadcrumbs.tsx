@@ -74,7 +74,7 @@ export default function Breadcrumbs({ links, activeLast = false, ...other }: Pro
 
   return (
     <MUIBreadcrumbs
-      separator={(
+      separator={
         <Box
           component="span"
           sx={{
@@ -84,7 +84,7 @@ export default function Breadcrumbs({ links, activeLast = false, ...other }: Pro
             bgcolor: 'text.disabled',
           }}
         />
-      )}
+      }
       {...other}
     >
       {activeLast ? listDefault : listActiveLast}

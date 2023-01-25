@@ -21,6 +21,7 @@ export function RHFSelect({ name, children, ...other }: Props) {
         <TextField
           {...field}
           select
+          defaultValue=""
           fullWidth
           SelectProps={{ native: true }}
           error={!!error}

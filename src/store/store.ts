@@ -5,8 +5,10 @@ import {
 } from 'redux-persist';
 
 import authApi, { AUTH_API_REDUCER_KEY } from '~/api/auth/api';
+import checkoutApi, { CHECKOUT_API_REDUCER_KEY } from '~/api/checkout/api';
+import citiesApi, { CITIES_API_REDUCER_KEY } from '~/api/cities/api';
 import procedureApi, { PROCEDURES_API_REDUCER_KEY } from '~/api/procedures/api';
-import userApi, { USER_API_REDUCER_KEY } from '~/api/user/api';
+import usersApi, { USERS_API_REDUCER_KEY } from '~/api/users/api';
 import { authReducer, authSlice } from '~/features/auth';
 import { cartReducer, cartSlice } from '~/features/cart';
 
@@ -16,9 +18,11 @@ import { rtkQueryErrorLogger } from './middlewares/rtkQueryErrorLogger';
 const reducers = {
   [authSlice.name]: authReducer,
   [cartSlice.name]: cartReducer,
+  [CITIES_API_REDUCER_KEY]: citiesApi.reducer,
   [AUTH_API_REDUCER_KEY]: authApi.reducer,
   [PROCEDURES_API_REDUCER_KEY]: procedureApi.reducer,
-  [USER_API_REDUCER_KEY]: userApi.reducer,
+  [CHECKOUT_API_REDUCER_KEY]: checkoutApi.reducer,
+  [USERS_API_REDUCER_KEY]: usersApi.reducer,
 };
 
 const combinedReducer = combineReducers<typeof reducers>(reducers);
@@ -38,7 +42,14 @@ export const store = configureStore({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
-  }).concat([authApi.middleware, procedureApi.middleware, userApi.middleware, rtkQueryErrorLogger]),
+  }).concat([
+    authApi.middleware,
+    procedureApi.middleware,
+    citiesApi.middleware,
+    checkoutApi.middleware,
+    usersApi.middleware,
+    rtkQueryErrorLogger,
+  ]),
 });
 
 export const persistor = persistStore(store);
