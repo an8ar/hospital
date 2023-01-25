@@ -22,7 +22,7 @@
     },
     "[typescriptreact]": {
         "editor.formatOnSave": false,
-        "editor.defaultFormatter": "vscode.typescript-language-features",
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.codeActionsOnSave": {
             "source.fixAll.eslint": true
         }

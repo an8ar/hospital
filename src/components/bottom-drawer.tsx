@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { Box, styled, SwipeableDrawer, SwipeableDrawerProps } from '@mui/material';
+import {
+  Box, styled, SwipeableDrawer, SwipeableDrawerProps,
+} from '@mui/material';
 
 type Props = Omit<SwipeableDrawerProps, 'onOpen'> & {
   children?: React.ReactNode;
@@ -8,7 +10,9 @@ type Props = Omit<SwipeableDrawerProps, 'onOpen'> & {
   onOpen?: VoidFunction;
 };
 
-export function BottomDrawer({ children, onClose, onOpen, ...drawerProps }: Props) {
+export function BottomDrawer({
+  children, onClose, onOpen, ...drawerProps
+}: Props) {
   const handleOnOpen = () => {
     onOpen?.();
   };

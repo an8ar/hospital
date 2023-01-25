@@ -17,32 +17,8 @@ export function CheckoutSteps({ activePage }: ShowStepsProps) {
         bgcolor: '#CCF0FF', borderRadius: '20px', mt: 4, padding: '0 6px',
       }}
     >
-      {steps.map((step, index) => {
-        if (index + 1 !== steps.length) {
-          return (
-            <>
-              <Typography
-                align="center"
-                sx={{
-                  color: (index === activePage) ? 'black' : 'grey.500',
-                  fontSize: (isLaptop) ? '18px' : '12px',
-                  fontWeight: 'bold',
-                }}
-              >
-                {step}
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: (isLaptop) ? '18px' : '12px',
-                  mx: 1,
-                }}
-              >
-                {'>>'}
-              </Typography>
-            </>
-          );
-        }
-        return (
+      {steps.map((step, index) => (
+        <>
           <Typography
             align="center"
             sx={{
@@ -53,8 +29,19 @@ export function CheckoutSteps({ activePage }: ShowStepsProps) {
           >
             {step}
           </Typography>
-        );
-      })}
+          {index + 1 !== steps.length
+              && (
+              <Typography
+                sx={{
+                  fontSize: (isLaptop) ? '18px' : '12px',
+                  mx: 2,
+                }}
+              >
+                {'>>'}
+              </Typography>
+              )}
+        </>
+      ))}
     </Box>
   );
 }

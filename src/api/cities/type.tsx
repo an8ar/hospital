@@ -1,6 +1,6 @@
-export type GetCitiesResponse={
+export type City={
     id: number,
     name: string,
     slug: string
 }
-export type GetCitiesResponseArray= GetCitiesResponse[]
+export type GetCitiesResponse= City[]

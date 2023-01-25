@@ -8,26 +8,26 @@ import { Logo } from '~/assets/logo';
 import { Procedures } from '~/features/procedures';
 import { useAppSelector } from '~/store';
 
-import { CartComponentList } from './cart-procedure-list';
+import { CartComponentList } from './cart-selected';
 
 export function CartComponent() {
-  const { selectedProcedures } = useAppSelector((state) => state.cartSlice);
   const { data: procedures = [], isLoading } = procedureApi.endpoints.getProcedures.useQuery();
+  const { selectedProcedures } = useAppSelector((state) => state.cartSlice);
   return (
-    <Container sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <Box display="flex" justifyContent="center" alignItems="center">
+    <ContainerStyle>
+      <CenteredBoxStyle>
         <Logo />
-      </Box>
+      </CenteredBoxStyle>
       {
         isLoading
           ? (
-            <Box display="flex" justifyContent="center" alignItems="center" height="50%">
+            <BoxButtonStyle>
               <LoadingButton
                 loading={isLoading}
                 variant="contained"
                 size="large"
               />
-            </Box>
+            </BoxButtonStyle>
           )
           : (
             <BoxStyle>
@@ -37,7 +37,7 @@ export function CartComponent() {
           )
 
       }
-    </Container>
+    </ContainerStyle>
   );
 }
 const BoxStyle = styled(Box)(({ theme }) => (
@@ -51,4 +51,22 @@ const BoxStyle = styled(Box)(({ theme }) => (
       height: '100%',
     },
   }
+));
+const ContainerStyle = styled(Container)(({ theme }) => ({
+  display: 'flex',
+  height: '100vh',
+  flexDirection: 'column',
+}));
+const CenteredBoxStyle = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+}
+));
+const BoxButtonStyle = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '50%',
+}
 ));

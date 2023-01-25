@@ -14,19 +14,19 @@ const checkoutApi = createApi({
   reducerPath: CHECKOUT_API_REDUCER_KEY,
   endpoints: (builder) => ({
     sendVerification: builder.mutation<SendVerificationResponse, SendVerificationRequest>({
-      query: (sendData) => ({
+      query: (body) => ({
         url: '/user/verification/send',
         method: 'POST',
-        body: sendData,
+        body,
       }),
       // transformResponse: (response:any) => response.verificationId,
     }),
     confirmVerification: builder.mutation<ConfirmVerificationResponse, ConfirmVerificationRequest>(
       {
-        query: (confirmData) => ({
+        query: (body) => ({
           url: '/user/verification/confirm',
           method: 'POST',
-          body: confirmData,
+          body,
         }),
       },
     ),

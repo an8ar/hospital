@@ -1,7 +1,9 @@
 import React from 'react';
 
 import { BoxProps, Box } from '@mui/material';
-import { alpha, useTheme, styled, Theme } from '@mui/material/styles';
+import {
+  alpha, useTheme, styled, Theme,
+} from '@mui/material/styles';
 
 import { ColorSchema } from '../theme/palette';
 
@@ -55,21 +57,21 @@ const RootStyle = styled('span')<RootStyleProps>(({ theme, ownerState }) => {
 
     ...(color !== 'default'
       ? {
-          ...(variant === 'filled' && { ...styleFilled(color) }),
-          ...(variant === 'outlined' && { ...styleOutlined(color) }),
-          ...(variant === 'ghost' && { ...styleGhost(color) }),
-        }
+        ...(variant === 'filled' && { ...styleFilled(color) }),
+        ...(variant === 'outlined' && { ...styleOutlined(color) }),
+        ...(variant === 'ghost' && { ...styleGhost(color) }),
+      }
       : {
-          ...(variant === 'outlined' && {
-            backgroundColor: 'transparent',
-            color: theme.palette.text.primary,
-            border: `1px solid ${theme.palette.grey[500_32]}`,
-          }),
-          ...(variant === 'ghost' && {
-            color: isLight ? theme.palette.text.secondary : theme.palette.common.white,
-            backgroundColor: theme.palette.grey[500_16],
-          }),
+        ...(variant === 'outlined' && {
+          backgroundColor: 'transparent',
+          color: theme.palette.text.primary,
+          border: `1px solid ${theme.palette.grey[500_32]}`,
         }),
+        ...(variant === 'ghost' && {
+          color: isLight ? theme.palette.text.secondary : theme.palette.common.white,
+          backgroundColor: theme.palette.grey[500_16],
+        }),
+      }),
   };
 });
 

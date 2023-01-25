@@ -12,4 +12,4 @@ export type ConfirmVerificationRequest={
     verificationId: string
 }
 
-export type ConfirmVerificationResponse=Omit <SendVerificationResponse, 'verificationId'>
+export type ConfirmVerificationResponse={isVerified: boolean}
