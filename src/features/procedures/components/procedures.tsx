@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import procedureApi from '~/api/procedures/api';
 
-import { CartComponent } from '../../cart';
 import { ProcedureList } from './procedure-list';
 
 export function Procedures() {
@@ -13,11 +12,15 @@ export function Procedures() {
   const procedures = data || [];
 
   return (
-    <Box sx={{ maxWidth: '100vw', display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ flex: 5 }}>
+      <Typography
+        textAlign="center"
+        fontSize="20px"
+        py="10px"
+      >
+        Выберите услуги
+      </Typography>
       <ProcedureList products={procedures} />
-      <Box sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
-        <CartComponent />
-      </Box>
     </Box>
   );
 }

@@ -3,6 +3,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 
+import { Logo } from '~/assets/logo';
 import { APPLICATION_NAME } from '~/config';
 
 type Props = {
@@ -19,7 +20,10 @@ export function Page({ children, meta, title }: Props) {
         {meta}
       </Helmet>
 
-      <Box>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+          <Logo />
+        </Box>
         {children}
       </Box>
     </>

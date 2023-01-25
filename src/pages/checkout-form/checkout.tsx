@@ -1,37 +1,31 @@
 import React from 'react';
 
-import { styled, Container, Box } from '@mui/material';
+import { styled, Container } from '@mui/material';
 
 import { Page } from '~/components/Page';
-import { CartCheckout } from '~/features/cart';
-import { Procedures } from '~/features/procedures';
+import { CheckoutForm } from '~/features/checkout';
 import { useResponsive } from '~/hooks/useResponsive';
 
-const ContentStyle = styled(Box)(({ theme }) => ({
+const ContentStyle = styled('div')(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
-  overflow: 'hidden',
+  flexDirection: 'row',
+  background: 'white',
+  padding: '12px',
 }));
-
-export function HomePage() {
+export function CheckoutPage() {
   const isMobile = useResponsive('down', 'sm');
-
   const border = { borderRadius: '30px' };
-  const direction = { flexDirection: 'row' };
   const shadow = { boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.3)' };
-
   if (isMobile) {
     border.borderRadius = 'none';
-    direction.flexDirection = 'column';
     shadow.boxShadow = 'none';
   }
-
   return (
     <Page title="Homepage">
       <Container sx={{ paddingTop: '12px' }}>
-        <ContentStyle sx={{ ...border, ...direction, ...shadow }}>
-          <Procedures />
-          <CartCheckout />
+        <ContentStyle sx={{ ...border, ...shadow }}>
+          <CheckoutForm />
         </ContentStyle>
       </Container>
     </Page>

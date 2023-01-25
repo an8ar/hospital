@@ -4,8 +4,8 @@ import { Route } from 'react-router-dom';
 
 import { lazyImport } from '~/utils/lazyImport';
 
-const { CheckoutPage } = lazyImport(() => import('./Checkout'), 'CheckoutPage');
+const { CheckoutPage } = lazyImport(() => import('./checkout'), 'CheckoutPage');
 
-export const CartRoutes = [
+export const CheckoutRoutes = [
   <Route path="/checkout" element={<CheckoutPage />} key="checkout" />,
 ];

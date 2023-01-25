@@ -61,6 +61,7 @@ export function RHFPhoneField({ name, ...other }: Props) {
           render={(innerRef, props) => (
             <TextField
               value={maskedPhone}
+              type="tel"
               error={!!error}
               helperText={error?.message}
               inputRef={innerRef}
