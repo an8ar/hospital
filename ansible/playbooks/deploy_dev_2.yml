@@ -1,0 +1,12 @@
+- hosts: all
+  vars:
+    deploy_folder: /home/ubuntu/nutrix/nutrix-web-2
+
+  tasks:
+  - name: Copy files to the server
+    synchronize:
+      src: ../../dist/
+      dest: "{{ deploy_folder }}"
+      rsync_opts:
+      - "--no-motd"
+      - "--exclude=.git"
