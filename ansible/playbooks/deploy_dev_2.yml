@@ -1,6 +1,6 @@
 - hosts: all
   vars:
-    deploy_folder: /home/ubuntu/nutrix/nutrix-web-2
+    deploy_folder: /home/techbridge/nutrix/nutrix-web-2
 
   tasks:
   - name: Copy files to the server
